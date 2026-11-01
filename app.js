@@ -367,6 +367,41 @@ function renderSpelling() {
     </div>
   `).join("");
 }
+
+
+const spellingSearch = document.getElementById("spelling-search");
+
+if (spellingSearch) {
+  spellingSearch.addEventListener("input", function () {
+    const keyword = this.value.trim().toLowerCase();
+
+    const filtered = spellingData.filter(item =>
+      item.word.includes(keyword) ||
+      item.meaning.includes(keyword) ||
+      item.thai.includes(keyword) ||
+      item.myanmar.includes(keyword)
+    );
+
+    const container = document.getElementById("spelling-list");
+
+    container.innerHTML = filtered.map(item => `
+      <div class="spelling-card">
+        <div class="spelling-word">${item.word}</div>
+        <div class="spelling-equation">${item.thai}</div>
+        <div class="spelling-myanmar">${item.myanmar}</div>
+        <div class="spelling-meaning">
+          အဓိပ္ပာယ် - ${item.meaning}
+        </div>
+        <div class="spelling-actions">
+          <button class="action-btn" data-speak="${item.word}">
+            🔊 အသံနားထောင်ရန်
+          </button>
+        </div>
+      </div>
+    `).join("") || "<p>ရှာမတွေ့ပါ။</p>";
+  });
+}
+
 /* =========================
    SAFE STORAGE
 ========================= */
