@@ -1,0 +1,8 @@
+{
+  "name": "Thai Learning Myanmar",
+  "short_name": "Thai Learning",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f5f6fb",
+  "theme_color": "#5b55d9"
+}
