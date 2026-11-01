@@ -332,41 +332,230 @@ const spellingData = [
 ];
 
 
+/* ==========================
+   SPELLING DATA
+========================== */
+
+// ကိုယ်တိုင်သတ်မှတ်ထားသော စာလုံးပေါင်းများ
+const spellingDictionary = {
+  "ไป": {
+    thai: "ไ + ป = ไป",
+    myanmar: "အိုင် + ပ = ပိုင်"
+  },
+  "ไก่": {
+    thai: "ก + ไ + ่ = ไก่",
+    myanmar: "က + အိုင် + မိုင်အေ့ = ကိုင်"
+  },
+  "ไข่": {
+    thai: "ข + ไ + ่ = ไข่",
+    myanmar: "ခ + အိုင် + မိုင်အေ့ = ခိုင်"
+  },
+  "ปลา": {
+    thai: "ป + ล + า = ปลา",
+    myanmar: "ပ + လ + အာ = ပလာ"
+  }
+};
+
+// HTML ထဲထည့်မယ့်စာသားကို လုံခြုံအောင် ပြောင်းခြင်း
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
+}
+
+// သိမ်းထားသော Data
+let customSpellingData =
+  readStorage("thai_custom_spelling", []);
 
 function renderSpelling() {
   const container = document.getElementById("spelling-list");
-
   if (!container) return;
 
-  container.innerHTML = spellingData.map(item => `
-    <div class="spelling-card">
+  const allData = [...spellingData, ...customSpellingData];
+
+  container.innerHTML = allData.map(item => `
+    <div class="spelling-card ${item.custom ? "custom-spelling" : ""}">
+
+      ${item.custom ? '<span class="custom-label">＋ ကိုယ်တိုင်ထည့်ထားသော Data</span>' : ""}
 
       <div class="spelling-word">
-        ${item.word}
+        ${escapeHTML(item.word)}
       </div>
 
       <div class="spelling-equation">
-        ${item.thai}
+        ${escapeHTML(item.thai)}
       </div>
 
       <div class="spelling-myanmar">
-        ${item.myanmar}
+        ${escapeHTML(item.myanmar)}
       </div>
 
       <div class="spelling-meaning">
-        အဓိပ္ပာယ် - ${item.meaning}
+        အဓိပ္ပာယ် - ${escapeHTML(item.meaning)}
       </div>
 
-      <div class="spelling-actions">
-        <button class="action-btn"
-          data-speak="${item.word}">
-          🔊 အသံနားထောင်ရန်
-        </button>
-      </div>
+      <button class="action-btn"
+        data-speak="${escapeHTML(item.word)}">
+        🔊 အသံနားထောင်ရန်
+      </button>
 
     </div>
   `).join("");
 }
+
+
+
+/* ==========================
+   ADD NEW SPELLING DATA
+========================== */
+
+const addSpellingBtn =
+  document.getElementById("add-spelling-btn");
+
+const spellingForm =
+  document.getElementById("spelling-form");
+
+const myanmarWordInput =
+  document.getElementById("myanmar-word");
+
+const saveSpellingBtn =
+  document.getElementById("save-spelling-btn");
+
+const cancelSpellingBtn =
+  document.getElementById("cancel-spelling-btn");
+
+const spellingStatus =
+  document.getElementById("spelling-status");
+
+if (addSpellingBtn) {
+  addSpellingBtn.addEventListener("click", () => {
+    spellingForm.hidden = false;
+    myanmarWordInput.focus();
+  });
+}
+
+if (cancelSpellingBtn) {
+  cancelSpellingBtn.addEventListener("click", () => {
+    spellingForm.hidden = true;
+    myanmarWordInput.value = "";
+    spellingStatus.textContent = "";
+  });
+}
+
+async function translateMyanmarToThai(text) {
+
+  // ရှိပြီးသား Vocabulary ထဲမှာ ရှာမယ်
+  const existing = words.find(
+    item => item[1].trim() === text.trim()
+  );
+
+  if (existing) {
+    return {
+      thai: existing[0],
+      pronunciation: existing[2]
+    };
+  }
+
+  // Online Translation API
+  const url =
+    "https://api.mymemory.translated.net/get?q=" +
+    encodeURIComponent(text) +
+    "&langpair=my|th";
+
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error("ဘာသာပြန်ဝန်ဆောင်မှုကို ချိတ်ဆက်မရပါ။");
+  }
+
+  const result = await response.json();
+
+  const translated =
+    result.responseData?.translatedText;
+
+  if (
+    !translated ||
+    result.responseStatus !== 200
+  ) {
+    throw new Error("ဘာသာပြန်လို့ မရသေးပါ။");
+  }
+
+  return {
+    thai: translated.trim(),
+    pronunciation: ""
+  };
+}
+
+if (saveSpellingBtn) {
+  saveSpellingBtn.addEventListener("click", async () => {
+
+    const myanmar = myanmarWordInput.value.trim();
+
+    if (!myanmar) {
+      spellingStatus.textContent =
+        "မြန်မာစကားလုံး အရင်ထည့်ပါ။";
+      return;
+    }
+
+    saveSpellingBtn.disabled = true;
+    spellingStatus.textContent =
+      "ဘာသာပြန်နေပါတယ်... ခဏစောင့်ပါ။";
+
+    try {
+      const result =
+        await translateMyanmarToThai(myanmar);
+
+      const thai = result.thai;
+
+      // ထိုင်းစာလုံးပေါင်း Dictionary ထဲမှာ ရှာမယ်
+      const spelling = spellingDictionary[thai];
+
+      const newItem = {
+        word: thai,
+        meaning: myanmar,
+
+        thai: spelling
+          ? spelling.thai
+          : thai + " = " + thai,
+
+        myanmar: spelling
+          ? spelling.myanmar + " = " + myanmar
+          : "အသံထွက်ကို ထပ်မံစစ်ဆေးရန်",
+
+        custom: true
+      };
+
+      customSpellingData.push(newItem);
+
+      localStorage.setItem(
+        "thai_custom_spelling",
+        JSON.stringify(customSpellingData)
+      );
+
+      renderSpelling();
+
+      spellingForm.hidden = true;
+      myanmarWordInput.value = "";
+
+      spellingStatus.textContent =
+        "Data သိမ်းဆည်းပြီးပါပြီ။";
+
+    } catch (error) {
+      spellingStatus.textContent =
+        error.message +
+        " Internet ချိတ်ဆက်မှုကို စစ်ဆေးပါ။";
+
+    } finally {
+      saveSpellingBtn.disabled = false;
+    }
+  });
+}
+
+      
 
 
 const spellingSearch = document.getElementById("spelling-search");
@@ -443,6 +632,7 @@ function showPage(id) {
 
   if (id === "saved") renderSaved();
   if (id === "words") renderWords();
+  if (id === "spelling") renderSpelling();
   if (id === "practice" && !quizQuestion) renderQuiz();
 
   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -898,7 +1088,7 @@ renderTones();
 renderFinals();
 renderWords();
 renderSentences();
-renderSpelling();
+renderSpelling() ;
 updateProgress();
 
 if ("serviceWorker" in navigator &&
