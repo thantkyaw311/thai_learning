@@ -1,8 +1,14 @@
+
 {
-  "name": "Thai Learning Myanmar",
-  "short_name": "Thai Learning",
-  "start_url": "./index.html",
+  "name": "Thai Learning School",
+  "short_name": "Thai Learn",
+  "description": "မြန်မာဘာသာဖြင့် ထိုင်းစာလေ့လာရန်",
+  "lang": "my",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#f5f6fb",
-  "theme_color": "#5b55d9"
+  "orientation": "portrait",
+  "background_color": "#f4f6fa",
+  "theme_color": "#2457a7",
+  "icons": []
 }
