@@ -7,7 +7,8 @@ const APP_FILES = [
   "./index.html",
   "./style.css",
   "./app.js",
-  "./manifest.json"
+  "./manifest.json",
+  "./icon.svg"
 ];
 
 /* INSTALL */
