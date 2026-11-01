@@ -86,29 +86,7 @@
         </button>
 
 
-<!-- SPELLING PAGE -->
-<section id="spelling" class="page">
 
-  <div class="page-heading">
-    <h2>ထိုင်းစာလုံးပေါင်း</h2>
-    <p>การสะกดคำ - Thai Spelling</p>
-  </div>
-
-  <div class="info-card">
-    ထိုင်းစာလုံးတစ်လုံးချင်းစီကို ခွဲပြီး
-    မြန်မာအသံထွက်နဲ့ လေ့လာနိုင်ပါတယ်။
-  </div>
-
-  <input
-    type="search"
-    id="spelling-search"
-    class="search-input"
-    placeholder="ထိုင်းစာ သို့မဟုတ် မြန်မာအဓိပ္ပာယ် ရှာရန်..."
-  >
-
-  <div id="spelling-list" class="spelling-list"></div>
-
-</section>
 
 
 
@@ -208,6 +186,44 @@
       </div>
       <div id="sentence-list" class="word-list"></div>
     </section>
+
+
+<section id="spelling" class="page">
+
+  <div class="page-heading">
+    <h2>ထိုင်းစာလုံးပေါင်း</h2>
+    <p>การสะกดคำ - Thai Spelling</p>
+  </div>
+
+  <button id="add-spelling-btn" class="primary-btn">
+    ＋ Data အသစ်ထည့်ရန်
+  </button>
+
+  <div id="spelling-form" hidden>
+    <input
+      type="text"
+      id="myanmar-word"
+      class="search-input"
+      placeholder="မြန်မာစကားလုံး ထည့်ပါ..."
+    >
+
+    <button id="save-spelling-btn" class="primary-btn">
+      သိမ်းမည်
+    </button>
+
+    <button id="cancel-spelling-btn" class="secondary-btn">
+      မလုပ်တော့ပါ
+    </button>
+  </div>
+
+  <div id="spelling-list" class="spelling-list"></div>
+
+</section>
+
+
+
+
+
 
     <section id="practice" class="page">
       <div class="page-heading">
