@@ -898,6 +898,7 @@ renderTones();
 renderFinals();
 renderWords();
 renderSentences();
+renderSpelling();
 updateProgress();
 
 if ("serviceWorker" in navigator &&
