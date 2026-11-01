@@ -1,9 +1,8 @@
-
 "use strict";
 
-/* ==================================
+/* =========================
    THAI CONSONANTS
-================================== */
+========================= */
 
 const consonants = [
 ["ก","ko kai","က","middle"],
@@ -52,100 +51,100 @@ const consonants = [
 ["ฮ","ho nokhuk","ဟ","low"]
 ];
 
-/* ==================================
+/* =========================
    VOWELS
-================================== */
+========================= */
 
 const vowels = [
-["ะ","a","အတို"],
-["า","aa","အရှည်"],
-["ิ","i","အတို"],
-["ี","ii","အရှည်"],
-["ึ","ue","အတို"],
-["ื","uee","အရှည်"],
-["ุ","u","အတို"],
-["ู","uu","အရှည်"],
-["เ-ะ","e","အတို"],
-["เ","ee","အရှည်"],
-["แ-ะ","ae","အတို"],
-["แ","aae","အရှည်"],
-["โ-ะ","o","အတို"],
-["โ","oo","အရှည်"],
-["เ-าะ","aw","အတို"],
-["อ","aw","အရှည်"],
-["เ-อะ","oe","အတို"],
-["เ-อ","oee","အရှည်"],
-["ไ","ai","အရှည်"],
-["ใ","ai","အရှည်"],
-["เอา","ao","ပေါင်းစပ်"],
-["เอีย","ia","ပေါင်းစပ်"],
-["เอือ","uea","ပေါင်းစပ်"],
-["อัว","ua","ပေါင်းစပ်"]
+["ะ","a","အသံတို"],
+["า","aa","အသံရှည်"],
+["ิ","i","အသံတို"],
+["ี","ii","အသံရှည်"],
+["ึ","ue","အသံတို"],
+["ื","uee","အသံရှည်"],
+["ุ","u","အသံတို"],
+["ู","uu","အသံရှည်"],
+["เ-ะ","e","အသံတို"],
+["เ","ee","အသံရှည်"],
+["แ-ะ","ae","အသံတို"],
+["แ","aae","အသံရှည်"],
+["โ-ะ","o","အသံတို"],
+["โ","oo","အသံရှည်"],
+["เ-าะ","aw","အသံတို"],
+["อ","aw","အသံရှည်"],
+["เ-อะ","oe","အသံတို"],
+["เ-อ","oee","အသံရှည်"],
+["ไ","ai","အသံပေါင်းစပ်"],
+["ใ","ai","အသံပေါင်းစပ်"],
+["เอา","ao","အသံပေါင်းစပ်"],
+["เอีย","ia","အသံပေါင်းစပ်"],
+["เอือ","uea","အသံပေါင်းစပ်"],
+["อัว","ua","အသံပေါင်းစပ်"]
 ];
 
-/* ==================================
-   TONE MARKS
-================================== */
+/* =========================
+   TONES
+========================= */
 
 const tones = [
 {
  mark:"ไม่มี",
- name:"အမှတ်အသားမပါ",
+ name:"အသံညီ",
  thai:"เสียงสามัญ",
- detail:"ပုံမှန်အသံ။ စာလုံး၏ ဗျည်းအုပ်စု၊ သရအရှည်အတိုနှင့် အဆုံးသတ်အသံအပေါ် မူတည်ပါတယ်။"
+ detail:"ပုံမှန်အသံဖြစ်ပါတယ်။"
 },
 {
  mark:"่",
  name:"ไม้เอก",
  thai:"เสียงเอก",
- detail:"ဗျည်းအုပ်စုနှင့် စာလုံးအမျိုးအစားပေါ်မူတည်၍ အသံထွက်ပြောင်းပါတယ်။"
+ detail:"အသံအမှတ်အသားတစ်ခုဖြစ်ပြီး ဗျည်းအုပ်စုအလိုက် အသံထွက်ပြောင်းပါတယ်။"
 },
 {
  mark:"้",
  name:"ไม้โท",
  thai:"เสียงโท",
- detail:"ဗျည်းအုပ်စုနှင့် စာလုံးအမျိုးအစားပေါ်မူတည်၍ အသံထွက်ပြောင်းပါတယ်။"
+ detail:"အသံထွက်စနစ်တွင် အသုံးပြုသော ဒုတိယအမှတ်အသားဖြစ်ပါတယ်။"
 },
 {
  mark:"๊",
  name:"ไม้ตรี",
  thai:"เสียงตรี",
- detail:"အသံအမှတ်အသားဖြစ်ပြီး အဓိကအားဖြင့် အလယ်တန်းဗျည်းများတွင် အသုံးပြုပါတယ်။"
+ detail:"အလယ်တန်းဗျည်းများတွင် အဓိကအသုံးပြုပါတယ်။"
 },
 {
  mark:"๋",
  name:"ไม้จัตวา",
  thai:"เสียงจัตวา",
- detail:"အသံအမှတ်အသားဖြစ်ပြီး အဓိကအားဖြင့် အလယ်တန်းဗျည်းများတွင် အသုံးပြုပါတယ်။"
+ detail:"အလယ်တန်းဗျည်းများတွင် အဓိကအသုံးပြုပါတယ်။"
 }
 ];
 
-/* ==================================
+/* =========================
    FINAL CONSONANTS
-================================== */
+========================= */
 
 const finals = [
-["ก","k","က","ဥပမာ มาก"],
-["ข ค ฆ","k","က","နောက်ဆုံးတွင် k အသံ"],
-["ด จ ช ซ ฎ ฏ ฐ ฑ ฒ ต ถ ท ธ ศ ษ ส","t","တ်","နောက်ဆုံးတွင် t အသံ"],
-["บ ป พ ฟ ภ","p","ပ်","နောက်ဆုံးတွင် p အသံ"],
-["ง","ng","င","နှာခေါင်းသံ ng"],
-["น ณ ญ ร ล ฬ","n","န်","နောက်ဆုံးတွင် n အသံ"],
-["ม","m","မ်","နောက်ဆုံးတွင် m အသံ"],
-["ย","y","ယ","သရနှင့်ပေါင်းစပ်သည့် y အသံ"],
-["ว","w","ဝ","သရနှင့်ပေါင်းစပ်သည့် w အသံ"]
+["ก","k","က်","มาก"],
+["ข ค ฆ","k","က်","နောက်ဆုံးတွင် k အသံ"],
+["ด จ ช ซ ฎ ฏ ฐ ฑ ฒ ต ถ ท ธ ศ ษ ส","t","တ်","นิด"],
+["บ ป พ ฟ ภ","p","ပ်","ครับ"],
+["ง","ng","င","ทาง"],
+["น ณ ญ ร ล ฬ","n","န်","กิน"],
+["ม","m","မ်","สาม"],
+["ย","y","ယ","အသံပေါင်းစပ်"],
+["ว","w","ဝ","အသံပေါင်းစပ်"]
 ];
 
-/* ==================================
+/* =========================
    VOCABULARY
-================================== */
+========================= */
 
 const words = [
 ["สวัสดี","မင်္ဂလာပါ","ဆဝတ်ဒီ"],
 ["ขอบคุณ","ကျေးဇူးတင်ပါတယ်","ခေါ့ပ်ခုန်"],
 ["ขอโทษ","တောင်းပန်ပါတယ်","ခေါ်ထို့"],
-["ใช่","ဟုတ်တယ်","ချိုင့်"],
-["ไม่ใช่","မဟုတ်ဘူး","မိုင်ချိုင့်"],
+["ใช่","ဟုတ်တယ်","ချိုင်"],
+["ไม่ใช่","မဟုတ်ဘူး","မိုင်ချိုင်"],
 ["ไม่","မဟုတ် / မ","မိုင်"],
 ["ได้","ရတယ်","ဒိုင်"],
 ["ไม่ได้","မရဘူး","မိုင်ဒိုင်"],
@@ -182,7 +181,6 @@ const words = [
 ["ที่ไหน","ဘယ်နေရာလဲ","ထီးနိုင်"],
 ["อะไร","ဘာလဲ","အရိုင်"],
 ["ใคร","ဘယ်သူလဲ","ခရိုင်"],
-["เมื่อไร","ဘယ်အချိန်လဲ","မူအရိုင်"],
 ["ห้องน้ำ","အိမ်သာ","ဟောင့်နမ်"],
 ["ตลาด","စျေး","တလတ်"],
 ["รถ","ကား","ရို့"],
@@ -245,14 +243,12 @@ const words = [
 ["อันนี้","ဒီဟာ","အန်နီး"],
 ["อันนั้น","ဟိုဟာ","အန်နန်"],
 ["ที่นี่","ဒီမှာ","ထီးနီး"],
-["ที่นั่น","ဟိုမှာ","ထီးနန်"],
-["ข้างหน้า","ရှေ့မှာ","ခါင်နာ"],
-["ข้างหลัง","နောက်မှာ","ခါင်လန်"]
+["ที่นั่น","ဟိုမှာ","ထီးနန်"]
 ];
 
-/* ==================================
-   DAILY SENTENCES
-================================== */
+/* =========================
+   SENTENCES
+========================= */
 
 const sentences = [
 ["คุณชื่ออะไร","နာမည်ဘယ်လိုခေါ်လဲ","ခွန်ချူးအရိုင်"],
@@ -272,386 +268,480 @@ const sentences = [
 ["ยินดีที่ได้รู้จัก","တွေ့ရတာ ဝမ်းသာပါတယ်","ယင်ဒီထီးဒိုင်ရူးကျက်"]
 ];
 
-/* ==================================
-   STORAGE
-================================== */
+/* =========================
+   SAFE STORAGE
+========================= */
 
 function readStorage(key, fallback) {
-    try {
-        const value = localStorage.getItem(key);
-        return value ? JSON.parse(value) : fallback;
-    } catch {
-        return fallback;
-    }
+  try {
+    const value = localStorage.getItem(key);
+    return value === null ? fallback : JSON.parse(value);
+  } catch {
+    return fallback;
+  }
 }
 
 let savedWords = readStorage("thai_saved", []);
 let completed = readStorage("thai_completed", []);
-let score = Number(localStorage.getItem("thai_score") || 0);
+let score = Number(readStorage("thai_score", 0)) || 0;
 
 function saveData() {
-    localStorage.setItem("thai_saved", JSON.stringify(savedWords));
-    localStorage.setItem("thai_completed", JSON.stringify(completed));
-    localStorage.setItem("thai_score", String(score));
+  localStorage.setItem("thai_saved", JSON.stringify(savedWords));
+  localStorage.setItem("thai_completed", JSON.stringify(completed));
+  localStorage.setItem("thai_score", JSON.stringify(score));
 }
 
-/* ==================================
+/* =========================
    NAVIGATION
-================================== */
+========================= */
 
 function showPage(id) {
-    const page = document.getElementById(id);
-    if (!page) return;
+  const page = document.getElementById(id);
+  if (!page) return;
 
-    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-    document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+  document.querySelectorAll(".page").forEach(p => {
+    p.classList.toggle("active", p.id === id);
+  });
 
-    page.classList.add("active");
+  document.querySelectorAll(".nav-btn").forEach(button => {
+    button.classList.toggle("active", button.dataset.page === id);
+  });
 
-    const nav = document.querySelector(`.nav-btn[data-page="${id}"]`);
-    if (nav) nav.classList.add("active");
+  if (id === "saved") renderSaved();
+  if (id === "words") renderWords();
+  if (id === "practice" && !quizQuestion) renderQuiz();
 
-    window.scrollTo({ top: 0, behavior: "smooth" });
-
-    if (id === "saved") renderSaved();
-    if (id === "words") renderWords();
-    if (id === "practice") renderQuiz();
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 document.getElementById("navigation").addEventListener("click", event => {
-    const button = event.target.closest("[data-page]");
-    if (button) showPage(button.dataset.page);
+  const button = event.target.closest("[data-page]");
+  if (button) showPage(button.dataset.page);
 });
 
 document.addEventListener("click", event => {
-    const button = event.target.closest("[data-goto]");
-    if (button) showPage(button.dataset.goto);
+  const button = event.target.closest("[data-goto]");
+  if (button) showPage(button.dataset.goto);
 });
 
-/* ==================================
+/* =========================
    SPEECH
-================================== */
+========================= */
 
 function speakThai(text) {
-    if (!("speechSynthesis" in window)) {
-        alert("ဒီ Browser မှာ အသံဖတ်စနစ် မထောက်ပံ့ပါ။");
-        return;
-    }
+  if (!("speechSynthesis" in window)) {
+    alert("ဒီ Browser မှာ အသံဖတ်စနစ် မထောက်ပံ့ပါ။");
+    return;
+  }
 
-    speechSynthesis.cancel();
+  speechSynthesis.cancel();
 
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = "th-TH";
-    utterance.rate = 0.8;
-    utterance.pitch = 1;
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = "th-TH";
+  utterance.rate = 0.8;
+  utterance.pitch = 1;
 
-    speechSynthesis.speak(utterance);
+  speechSynthesis.speak(utterance);
 }
 
-/* ==================================
+/* =========================
    ALPHABET
-================================== */
+========================= */
 
 let currentClass = "all";
 
-function renderAlphabet() {
-    const container = document.getElementById("alphabet-list");
-
-    const filtered = consonants.filter(item =>
-        currentClass === "all" || item[3] === currentClass
-    );
-
-    container.innerHTML = filtered.map(item => `
-        <article class="alphabet-card">
-            <div class="alphabet-letter thai">${item[0]}</div>
-            <div class="alphabet-name">${item[1]}</div>
-            <div class="alphabet-sound">မြန်မာအသံ: ${item[2]}</div>
-            <span class="class-label">${className(item[3])}</span>
-            <br>
-            <button class="icon-btn" data-speak="${item[0]}" aria-label="အသံနားထောင်ရန်">🔊</button>
-            <button class="icon-btn" data-complete="alphabet-${item[0]}" aria-label="လေ့လာပြီးမှတ်ရန်">✓</button>
-        </article>
-    `).join("");
+function className(value) {
+  return {
+    middle: "အလယ်တန်း",
+    high: "အမြင့်တန်း",
+    low: "အနိမ့်တန်း"
+  }[value];
 }
 
-function className(value) {
-    return {
-        middle: "အလယ်တန်း",
-        high: "အမြင့်တန်း",
-        low: "အနိမ့်တန်း"
-    }[value];
+function renderAlphabet() {
+  const container = document.getElementById("alphabet-list");
+
+  const filtered = consonants.filter(item =>
+    currentClass === "all" || item[3] === currentClass
+  );
+
+  container.innerHTML = filtered.map(item => {
+    const id = "alphabet-" + item[0];
+    const done = completed.includes(id);
+
+    return `
+      <article class="alphabet-card">
+        <div class="alphabet-letter thai">${item[0]}</div>
+        <div class="alphabet-name">${item[1]}</div>
+        <div class="alphabet-sound">မြန်မာအသံ: ${item[2]}</div>
+        <span class="class-label">${className(item[3])}</span>
+        <br>
+        <button class="icon-btn" data-speak="${item[0]}">🔊</button>
+        <button class="icon-btn" data-complete="${id}">
+          ${done ? "✓" : "＋"}
+        </button>
+      </article>
+    `;
+  }).join("");
 }
 
 document.querySelectorAll("[data-class]").forEach(button => {
-    button.addEventListener("click", () => {
-        document.querySelectorAll("[data-class]").forEach(b => b.classList.remove("active"));
-        button.classList.add("active");
-        currentClass = button.dataset.class;
-        renderAlphabet();
-    });
+  button.addEventListener("click", () => {
+    document.querySelectorAll("[data-class]").forEach(b =>
+      b.classList.remove("active")
+    );
+
+    button.classList.add("active");
+    currentClass = button.dataset.class;
+    renderAlphabet();
+  });
 });
 
-/* ==================================
+/* =========================
    VOWELS
-================================== */
+========================= */
 
 function renderVowels() {
-    document.getElementById("vowel-list").innerHTML = vowels.map(v => `
+  document.getElementById("vowel-list").innerHTML =
+    vowels.map(v => {
+      const id = "vowel-" + v[0];
+
+      return `
         <article class="vowel-card">
-            <div class="vowel-letter thai">${v[0]}</div>
-            <div class="vowel-name">${v[1]}</div>
-            <div class="vowel-sound">${v[2]}</div>
-            <button class="icon-btn" data-speak="${v[0].replaceAll("-", "")}">🔊</button>
-            <button class="icon-btn" data-complete="vowel-${v[0]}">✓</button>
+          <div class="vowel-letter thai">${v[0]}</div>
+          <div class="vowel-name">${v[1]}</div>
+          <div class="vowel-sound">${v[2]}</div>
+          <button class="icon-btn" data-speak="${v[0].replaceAll("-", "")}">🔊</button>
+          <button class="icon-btn" data-complete="${id}">
+            ${completed.includes(id) ? "✓" : "＋"}
+          </button>
         </article>
-    `).join("");
+      `;
+    }).join("");
 }
 
-/* ==================================
+/* =========================
    TONES
-================================== */
+========================= */
 
 function renderTones() {
-    document.getElementById("tone-list").innerHTML = tones.map(t => `
-        <article class="tone-card">
-            <div class="tone-mark thai">${t.mark}</div>
-            <h3>${t.name}</h3>
-            <div class="thai">${t.thai}</div>
-            <p>${t.detail}</p>
-        </article>
+  document.getElementById("tone-list").innerHTML =
+    tones.map(t => `
+      <article class="tone-card">
+        <div class="tone-mark thai">${t.mark}</div>
+        <h3>${t.name}</h3>
+        <div class="thai">${t.thai}</div>
+        <p>${t.detail}</p>
+      </article>
     `).join("");
 }
 
-/* ==================================
+/* =========================
    FINAL CONSONANTS
-================================== */
+========================= */
 
 function renderFinals() {
-    document.getElementById("final-list").innerHTML = finals.map(f => `
-        <article class="final-card">
-            <h3 class="thai">${f[0]}</h3>
-            <b>အဆုံးသတ်အသံ: ${f[1]}</b>
-            <p>မြန်မာအသံ: ${f[2]}</p>
-            <p class="thai">${f[3]}</p>
-        </article>
+  document.getElementById("final-list").innerHTML =
+    finals.map(f => `
+      <article class="final-card">
+        <h3 class="thai">${f[0]}</h3>
+        <b>အဆုံးသတ်အသံ: ${f[1]}</b>
+        <p>မြန်မာအသံ: ${f[2]}</p>
+        <p class="thai">${f[3]}</p>
+      </article>
     `).join("");
 }
 
-/* ==================================
-   VOCABULARY
-================================== */
+/* =========================
+   WORDS
+========================= */
 
 function wordCard(word, index) {
-    const isSaved = savedWords.includes(index);
+  const isSaved = savedWords.includes(index);
 
-    return `
-        <article class="word-card">
-            <div class="word-main">
-                <div class="word-thai thai">${word[0]}</div>
-                <div class="word-meaning">${word[1]}</div>
-                <div class="word-pronunciation">အနီးစပ်ဆုံးအသံ: ${word[2]}</div>
-            </div>
-            <div class="word-actions">
-                <button class="icon-btn" data-speak="${word[0]}" aria-label="အသံနားထောင်ရန်">🔊</button>
-                <button class="icon-btn" data-save="${index}" aria-label="Favorite သိမ်းရန်">${isSaved ? "★" : "☆"}</button>
-            </div>
-        </article>
-    `;
+  return `
+    <article class="word-card">
+      <div class="word-main">
+        <div class="word-thai thai">${word[0]}</div>
+        <div class="word-meaning">${word[1]}</div>
+        <div class="word-pronunciation">
+          အနီးစပ်ဆုံးအသံ: ${word[2]}
+        </div>
+      </div>
+
+      <div class="word-actions">
+        <button class="icon-btn" data-speak="${word[0]}">🔊</button>
+        <button class="icon-btn" data-save="${index}">
+          ${isSaved ? "★" : "☆"}
+        </button>
+      </div>
+    </article>
+  `;
 }
 
 function renderWords(query = "") {
-    const container = document.getElementById("word-list");
-    const normalized = query.trim().toLowerCase();
+  const container = document.getElementById("word-list");
+  const normalized = query.trim().toLowerCase();
 
-    const filtered = words.map((word, index) => ({ word, index }))
-        .filter(item => item.word.join(" ").toLowerCase().includes(normalized));
+  const filtered = words
+    .map((word, index) => ({ word, index }))
+    .filter(item =>
+      item.word.join(" ").toLowerCase().includes(normalized)
+    );
 
-    container.innerHTML = filtered.length
-        ? filtered.map(item => wordCard(item.word, item.index)).join("")
-        : '<div class="empty-message">ရှာဖွေမှုနှင့် ကိုက်ညီသော စကားလုံးမတွေ့ပါ။</div>';
+  container.innerHTML = filtered.length
+    ? filtered.map(item => wordCard(item.word, item.index)).join("")
+    : `<div class="empty-message">စကားလုံး မတွေ့ပါ။</div>`;
 }
 
 document.getElementById("word-search").addEventListener("input", event => {
-    renderWords(event.target.value);
+  renderWords(event.target.value);
 });
 
-/* ==================================
-   FAVORITES
-================================== */
+/* =========================
+   SAVED WORDS
+========================= */
 
 function renderSaved() {
-    const container = document.getElementById("saved-list");
+  const container = document.getElementById("saved-list");
 
-    container.innerHTML = savedWords.length
-        ? savedWords.map(index => {
-            if (!words[index]) return "";
-            return wordCard(words[index], index);
-        }).join("")
-        : '<div class="empty-message">သိမ်းထားသော စကားလုံး မရှိသေးပါ။</div>';
+  container.innerHTML = savedWords.length
+    ? savedWords
+        .filter(index => words[index])
+        .map(index => wordCard(words[index], index))
+        .join("")
+    : `<div class="empty-message">သိမ်းထားသော စကားလုံး မရှိသေးပါ။</div>`;
 }
 
 function toggleSaved(index) {
-    if (savedWords.includes(index)) {
-        savedWords = savedWords.filter(i => i !== index);
-    } else {
-        savedWords.push(index);
-    }
+  if (savedWords.includes(index)) {
+    savedWords = savedWords.filter(i => i !== index);
+  } else {
+    savedWords.push(index);
+  }
 
-    saveData();
-    renderWords(document.getElementById("word-search").value);
-    renderSaved();
+  saveData();
+  renderWords(document.getElementById("word-search").value);
+  renderSaved();
 }
 
-/* ==================================
+/* =========================
+   SENTENCES
+========================= */
+
+function renderSentences() {
+  document.getElementById("sentence-list").innerHTML =
+    sentences.map(s => `
+      <article class="sentence-card">
+        <div class="word-thai thai">${s[0]}</div>
+        <div>${s[1]}</div>
+        <div class="word-pronunciation">
+          အနီးစပ်ဆုံးအသံ: ${s[2]}
+        </div>
+        <button class="icon-btn" data-speak="${s[0]}">
+          🔊 အသံနားထောင်ရန်
+        </button>
+      </article>
+    `).join("");
+}
+
+/* =========================
    QUIZ
-================================== */
+========================= */
 
 let quizQuestion = null;
 let quizAnswered = false;
 let quizNumber = 0;
 
 function shuffle(array) {
-    return [...array].sort(() => Math.random() - 0.5);
+  const result = [...array];
+
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+
+  return result;
 }
 
 function renderQuiz() {
-    const correctIndex = Math.floor(Math.random() * words.length);
-    const correct = words[correctIndex];
+  const correctIndex = Math.floor(Math.random() * words.length);
+  const correct = words[correctIndex];
 
-    const options = shuffle([
-        correct,
-        ...shuffle(words.filter((_, i) => i !== correctIndex)).slice(0, 3)
-    ]);
+  const options = shuffle([
+    correct,
+    ...shuffle(words.filter((_, i) => i !== correctIndex)).slice(0, 3)
+  ]);
 
-    quizQuestion = {
-        correct,
-        options
-    };
+  quizQuestion = { correct, options };
+  quizAnswered = false;
+  quizNumber++;
 
-    quizAnswered = false;
-    quizNumber++;
+  document.getElementById("quiz-number").textContent = quizNumber;
 
-    document.getElementById("quiz-number").textContent = quizNumber;
-    document.getElementById("quiz-question").innerHTML =
-        `"<span class="thai">${correct[0]}</span>" ရဲ့ အဓိပ္ပာယ်က ဘာလဲ။`;
+  document.getElementById("quiz-question").innerHTML =
+    `<span class="thai">${correct[0]}</span> ရဲ့ အဓိပ္ပာယ်က ဘာလဲ။`;
 
-    document.getElementById("quiz-feedback").textContent = "";
+  document.getElementById("quiz-feedback").textContent = "";
 
-    document.getElementById("quiz-options").innerHTML = options.map((item, i) => `
-        <button class="quiz-option" data-answer="${i}">
-            ${i + 1}. ${item[1]}
-        </button>
+  document.getElementById("quiz-options").innerHTML =
+    options.map((item, i) => `
+      <button class="quiz-option" data-answer="${i}">
+        ${i + 1}. ${item[1]}
+      </button>
     `).join("");
 
-    document.getElementById("quiz-score").textContent = score;
+  document.getElementById("quiz-score").textContent = score;
 }
 
 document.getElementById("quiz-options").addEventListener("click", event => {
-    const button = event.target.closest("[data-answer]");
-    if (!button || quizAnswered) return;
+  const button = event.target.closest("[data-answer]");
 
-    quizAnswered = true;
+  if (!button || quizAnswered || !quizQuestion) return;
 
-    const selected = quizQuestion.options[Number(button.dataset.answer)];
-    const correct = selected[0] === quizQuestion.correct[0];
+  quizAnswered = true;
 
-    document.querySelectorAll(".quiz-option").forEach(option => {
-        const item = quizQuestion.options[Number(option.dataset.answer)];
+  const selected = quizQuestion.options[Number(button.dataset.answer)];
+  const correct = selected[0] === quizQuestion.correct[0];
 
-        if (item[0] === quizQuestion.correct[0]) {
-            option.classList.add("correct");
-        }
-    });
+  document.querySelectorAll(".quiz-option").forEach(option => {
+    const item = quizQuestion.options[Number(option.dataset.answer)];
 
-    if (correct) {
-        score++;
-        document.getElementById("quiz-feedback").textContent = "မှန်ပါတယ်။ အလွန်ကောင်းပါတယ်။";
-    } else {
-        button.classList.add("wrong");
-        document.getElementById("quiz-feedback").textContent =
-            `မမှန်သေးပါ။ အဖြေမှန်က ${quizQuestion.correct[1]} ဖြစ်ပါတယ်။`;
+    option.disabled = true;
+
+    if (item[0] === quizQuestion.correct[0]) {
+      option.classList.add("correct");
     }
+  });
 
-    document.getElementById("quiz-score").textContent = score;
-    localStorage.setItem("thai_score", String(score));
+  if (correct) {
+    score++;
+    document.getElementById("quiz-feedback").textContent =
+      "မှန်ပါတယ်။ အလွန်ကောင်းပါတယ်။";
+  } else {
+    button.classList.add("wrong");
+
+    document.getElementById("quiz-feedback").textContent =
+      `အဖြေမှန်က ${quizQuestion.correct[1]} ဖြစ်ပါတယ်။`;
+  }
+
+  saveData();
+
+  document.getElementById("quiz-score").textContent = score;
 });
 
-document.getElementById("next-question").addEventListener("click", () => {
-    renderQuiz();
-});
+document.getElementById("next-question").addEventListener("click", renderQuiz);
 
-/* ==================================
-   COMPLETED LESSONS
-================================== */
+/* =========================
+   PROGRESS
+========================= */
 
 function toggleCompleted(id) {
-    if (completed.includes(id)) {
-        completed = completed.filter(x => x !== id);
-    } else {
-        completed.push(id);
-    }
+  if (completed.includes(id)) {
+    completed = completed.filter(x => x !== id);
+  } else {
+    completed.push(id);
+  }
 
-    saveData();
-    updateProgress();
+  saveData();
+  updateProgress();
+  renderAlphabet();
+  renderVowels();
 }
 
 function updateProgress() {
-    const total = consonants.length + vowels.length;
-    const percent = Math.round((completed.length / total) * 100);
+  const total = consonants.length + vowels.length;
 
-    document.getElementById("progress-bar").style.width =
-        Math.min(percent, 100) + "%";
+  const validCompleted = completed.filter(id =>
+    id.startsWith("alphabet-") || id.startsWith("vowel-")
+  );
 
-    document.getElementById("progress-text").textContent =
-        `လေ့လာပြီး ${completed.length} / ${total} ခု (${Math.min(percent, 100)}%)`;
+  const count = new Set(validCompleted).size;
+  const percent = Math.round((count / total) * 100);
+
+  document.getElementById("progress-bar").style.width =
+    Math.min(percent, 100) + "%";
+
+  document.getElementById("progress-text").textContent =
+    `လေ့လာပြီး ${count} / ${total} ခု (${Math.min(percent, 100)}%)`;
 }
 
-/* ==================================
+/* =========================
    GLOBAL BUTTON HANDLER
-================================== */
+========================= */
 
 document.addEventListener("click", event => {
-    const speakButton = event.target.closest("[data-speak]");
-    if (speakButton) speakThai(speakButton.dataset.speak);
+  const speakButton = event.target.closest("[data-speak]");
 
-    const saveButton = event.target.closest("[data-save]");
-    if (saveButton) toggleSaved(Number(saveButton.dataset.save));
+  if (speakButton) {
+    speakThai(speakButton.dataset.speak);
+  }
 
-    const completeButton = event.target.closest("[data-complete]");
-    if (completeButton) toggleCompleted(completeButton.dataset.complete);
+  const saveButton = event.target.closest("[data-save]");
+
+  if (saveButton) {
+    toggleSaved(Number(saveButton.dataset.save));
+  }
+
+  const completeButton = event.target.closest("[data-complete]");
+
+  if (completeButton) {
+    toggleCompleted(completeButton.dataset.complete);
+  }
 });
 
-/* ==================================
-   SENTENCES
-================================== */
+/* =========================
+   PWA INSTALL
+========================= */
 
-function renderSentences() {
-    document.getElementById("sentence-list").innerHTML = sentences.map(s => `
-        <article class="sentence-card">
-            <div class="word-thai thai">${s[0]}</div>
-            <div>${s[1]}</div>
-            <div class="word-pronunciation">အနီးစပ်ဆုံးအသံ: ${s[2]}</div>
-            <button class="icon-btn" data-speak="${s[0]}">🔊 အသံနားထောင်ရန်</button>
-        </article>
-    `).join("");
-}
+let deferredInstallPrompt = null;
 
-/* ==================================
+const installButton = document.getElementById("install-btn");
+
+window.addEventListener("beforeinstallprompt", event => {
+  event.preventDefault();
+  deferredInstallPrompt = event;
+  installButton.hidden = false;
+});
+
+installButton.addEventListener("click", async () => {
+  if (!deferredInstallPrompt) {
+    alert("Browser Menu မှ Add to Home Screen ကို အသုံးပြုပါ။");
+    return;
+  }
+
+  deferredInstallPrompt.prompt();
+
+  await deferredInstallPrompt.userChoice;
+
+  deferredInstallPrompt = null;
+  installButton.hidden = true;
+});
+
+window.addEventListener("appinstalled", () => {
+  installButton.hidden = true;
+  deferredInstallPrompt = null;
+});
+
+/* =========================
    INITIALIZE
-================================== */
+========================= */
 
 renderAlphabet();
 renderVowels();
 renderTones();
-renderWords();
 renderFinals();
+renderWords();
 renderSentences();
 updateProgress();
 
-if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
-    window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js").catch(error => {
-            console.error("Service worker registration failed:", error);
-        });
-    });
+if ("serviceWorker" in navigator &&
+    location.protocol.startsWith("http")) {
+
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js")
+      .catch(error => {
+        console.error("Service Worker Error:", error);
+      });
+  });
 }
