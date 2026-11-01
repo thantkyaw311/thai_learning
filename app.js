@@ -331,6 +331,42 @@ const spellingData = [
   }
 ];
 
+
+
+function renderSpelling() {
+  const container = document.getElementById("spelling-list");
+
+  if (!container) return;
+
+  container.innerHTML = spellingData.map(item => `
+    <div class="spelling-card">
+
+      <div class="spelling-word">
+        ${item.word}
+      </div>
+
+      <div class="spelling-equation">
+        ${item.thai}
+      </div>
+
+      <div class="spelling-myanmar">
+        ${item.myanmar}
+      </div>
+
+      <div class="spelling-meaning">
+        အဓိပ္ပာယ် - ${item.meaning}
+      </div>
+
+      <div class="spelling-actions">
+        <button class="action-btn"
+          data-speak="${item.word}">
+          🔊 အသံနားထောင်ရန်
+        </button>
+      </div>
+
+    </div>
+  `).join("");
+}
 /* =========================
    SAFE STORAGE
 ========================= */
