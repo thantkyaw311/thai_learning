@@ -1,133 +1,657 @@
-const C=[['ก','ကော်','m'],['ข','ခေါ်','h'],['ฃ','ခေါ်','h'],['ค','ခော်','l'],['ฅ','ခော်','l'],['ฆ','ခေါ်','l'],['ง','ငော်','l'],['จ','จော်','m'],['ฉ','ချော်','h'],['ช','ချော်','l'],['ซ','ဆော်','l'],['ฌ','ချော်','l'],['ญ','ယော်','l'],['ฎ','ဒော်','m'],['ฏ','တော်','m'],['ฐ','ထော်','h'],['ฑ','ထော်','l'],['ฒ','ထော်','l'],['ณ','နော်','l'],['ด','ဒော်','m'],['ต','တော်','m'],['ถ','ထော်','h'],['ท','ထော်','l'],['ธ','ထော်','l'],['น','နော်','l'],['บ','ဘော်','m'],['ป','ပော်','m'],['ผ','ဖော်','h'],['ฝ','ဖော်','h'],['พ','ဖော်','l'],['ฟ','ဖော်','l'],['ภ','ဖော်','l'],['ม','မော်','l'],['ย','ယော်','l'],['ร','ရော်','l'],['ล','လော်','l'],['ว','ဝော်','l'],['ศ','ဆော်','h'],['ษ','ဆော်','h'],['ส','ဆော်','h'],['ห','ဟော်','h'],['ฬ','လော်','l'],['อ','အော်','m'],['ฮ','ဟော်','l']];
-const V=[['ะ','အ','အတို'],['า','အာ','အရှည်'],['ิ','အိ','အတို'],['ี','အီး','အရှည်'],['ึ','အึ','အတို'],['ื','အื','အရှည်'],['ุ','အု','အတို'],['ู','အူး','အရှည်'],['เ-ะ','အဲ','အတို'],['เ-','အေး','အရှည်'],['แ-ะ','အဲ','အတို'],['แ-','အဲ','အရှည်'],['โ-ะ','အို','အတို'],['โ-','အိုး','အရှည်'],['เ-าะ','အော်','အတို'],['-อ','အော်','အရှည်'],['เ-อะ','အเออะ','အတို'],['เ-อ','အเออ','အရှည်'],['เ-ียะ','အီယะ','အတို'],['เ-ีย','အီးယာ','အရှည်'],['เ-ือะ','အွือะ','အတို'],['เ-ือ','အွือ','အရှည်'],['-ัวะ','အွัวะ','အတို'],['-ัว','အွัว','အရှည်'],['ำ','အမ်','ပေါင်းသရ'],['ไ-','အိုင်','ပေါင်းသရ'],['ใ-','အိုင်','ပေါင်းသရ'],['เ-า','အောဝ်','ပေါင်းသရ']];
-const F=[['ก ข ค ฆ','-k','က အသံပိတ်'],['ด จ ช ซ ต ถ ท ธ ศ ษ ส','-t','တ အသံပိတ်'],['บ ป พ ฟ ภ','-p','ပ အသံပိတ်'],['ง','-ng','င သံ'],['น ณ ญ ร ล ฬ','-n','န သံ'],['ม','-m','မ သံ'],['ย','-y','ယ သံ'],['ว','-w','ဝ သံ']];
-const T=[['ไม่มีวรรณยุกต์','သင်္ကေတမပါ'],['่ ไม้เอก','မိုင်အေက်'],['้ ไม้โท','မိုင်ထို'],['๊ ไม้ตรี','မိုင်ตรี'],['๋ ไม้จัตวา','မိုင်ကျတ်တာဝါ']];
-const raw=`สวัสดี|ဆဝတ်ဒီ|မင်္ဂလာပါ|နှုတ်ဆက်
-ขอบคุณ|ခေါပ်ခုန်|ကျေးဇူးတင်ပါတယ်|နှုတ်ဆက်
-ขอโทษ|ခေါ်ထို့|တောင်းပန်ပါတယ်|နှုတ်ဆက်
-ลาก่อน|လာ့ကွန်း|နှုတ်ဆက်ပါတယ်|နှုတ်ဆက်
-ใช่|ချိုင်း|ဟုတ်ကဲ့|နေ့စဉ်
-ไม่ใช่|မိုင်ချိုင်း|မဟုတ်ပါဘူး|နေ့စဉ်
-ไม่|မိုင်|မဟုတ် / မ|နေ့စဉ်
-ได้|ဒိုင်|ရတယ်|နေ့စဉ်
-ไม่ได้|မိုင်ဒိုင်|မရဘူး|နေ့စဉ်
-ครับ|ခရပ်|ယောက်ျားသုံး ယဉ်ကျေးစကားဆုံး|နေ့စဉ်
-ค่ะ|ခะ|မိန်းကလေးသုံး ယဉ်ကျေးစကားဆုံး|နေ့စဉ်
-คุณ|ခုန်|သင် / ခင်ဗျား|နေ့စဉ်
-ผม|ဖုမ်|ကျွန်တော်|နေ့စဉ်
-ฉัน|ချန်|ကျွန်မ / ငါ|နေ့စဉ်
-เรา|ရောဝ်|ကျွန်တော်တို့|နေ့စဉ်
-เขา|ခေါဝ်|သူ|နေ့စဉ်
-อะไร|အะရိုင်|ဘာလဲ|နေ့စဉ်
-ที่ไหน|ထီးနိုင်|ဘယ်နေရာ|နေ့စဉ်
-เมื่อไหร่|မူးအရိုင်|ဘယ်အချိန်|နေ့စဉ်
-ทำไม|ထမ်မိုင်|ဘာကြောင့်|နေ့စဉ်
-น้ำ|နမ်|ရေ|အစားအသောက်
-ข้าว|ခေါဝ်|ထမင်း|အစားအသောက်
-อาหาร|အာဟာန်|အစားအစာ|အစားအသောက်
-กาแฟ|ကာဖဲ|ကော်ဖီ|အစားအသောက်
-ชา|ချာ|လက်ဖက်ရည်|အစားအသောက်
-นม|နုမ်|နို့|အစားအသောက်
-ไข่|ခိုင်|ကြက်ဥ|အစားအသောက်
-ปลา|ပလာ|ငါး|အစားအသောက်
-ไก่|ကိုင်|ကြက်သား|အစားအသောက်
-หมู|မူး|ဝက်သား|အစားအသောက်
-เนื้อ|နူးအะ|အမဲသား|အစားအသောက်
-ผัก|ဖတ်|ဟင်းသီးဟင်းရွက်|အစားအသောက်
-ผลไม้|ဖုန်ละမိုင်|သစ်သီး|အစားအသောက်
-ส้ม|စုံး|လိမ္မော်သီး|အစားအသောက်
-กล้วย|ကလွယ်|ငှက်ပျောသီး|အစားအသောက်
-เผ็ด|ဖက်|စပ်တယ်|အစားအသောက်
-หวาน|ဝါန်|ချိုတယ်|အစားအသောက်
-เค็ม|ခေမ်|ငန်တယ်|အစားအသောက်
-อร่อย|အะရွိုင်|အရသာရှိတယ်|အစားအသောက်
-หิว|ဟิว|ဗိုက်ဆာတယ်|အစားအသောက်
-บ้าน|ဘ้าน|အိမ်|နေရာ
-โรงเรียน|ရိုးင်เรียน|ကျောင်း|နေရာ
-โรงพยาบาล|ရိုးင်ဖယာဘာန်|ဆေးရုံ|နေရာ
-ตลาด|တလတ်|ဈေး|နေရာ
-ร้านค้า|ရန်ခါ|ဆိုင်|နေရာ
-ห้องน้ำ|ဟေါင်နမ်|အိမ်သာ|နေရာ
-ห้อง|ဟေါင်|အခန်း|နေရာ
-ถนน|ထနွန်|လမ်းမ|နေရာ
-สถานี|စထာနီး|ဘူတာ|နေရာ
-สนามบิน|စနာမ်ဘင်|လေဆိပ်|နေရာ
-วัด|ဝတ်|ဘုန်းကြီးကျောင်း|နေရာ
-ธนาคาร|ထနာခါန်|ဘဏ်|နေရာ
-ที่นี่|ထီးနီး|ဒီနေရာ|နေရာ
-ที่นั่น|ထီးနန်|ဟိုနေရာ|နေရာ
-ใกล้|ကလိုင်|နီးတယ်|နေရာ
-ไป|ပိုင်|သွားသည်|နေ့စဉ်
-มา|မာ|လာသည်|နေ့စဉ်
-กิน|ကင်|စားသည်|နေ့စဉ်
-ดื่ม|ဒူးမ်|သောက်သည်|နေ့စဉ်
-นอน|နော်န်|အိပ်သည်|နေ့စဉ်
-ตื่น|တွန်း|နိုးသည်|နေ့စဉ်
-ทำงาน|ထမ်ငါန်|အလုပ်လုပ်သည်|နေ့စဉ်
-เรียน|เรียน|စာသင်သည်|နေ့စဉ်
-พูด|ဖူးတ်|စကားပြောသည်|နေ့စဉ်
-ฟัง|ဖัง|နားထောင်သည်|နေ့စဉ်
-ดู|ဒူး|ကြည့်သည်|နေ့စဉ်
-อ่าน|အာန်|ဖတ်သည်|နေ့စဉ်
-เขียน|ခီယန်|ရေးသည်|နေ့စဉ်
-ซื้อ|စူး|ဝယ်သည်|နေ့စဉ်
-ขาย|ခါးယ|ရောင်းသည်|နေ့စဉ်
-จ่าย|ကျာ့ယ|ပေးချေသည်|နေ့စဉ်
-รอ|ရော်|စောင့်သည်|နေ့စဉ်
-ช่วย|ချွယ်|ကူညီသည်|နေ့စဉ်
-ชอบ|ချော်ပ်|ကြိုက်သည်|နေ့စဉ်
-รัก|ရတ်|ချစ်သည်|နေ့စဉ်
-หนึ่ง|နึ่ง|တစ်|နေ့စဉ်
-สอง|ဆောင့်|နှစ်|နေ့စဉ်
-สาม|ဆာမ်|သုံး|နေ့စဉ်
-สี่|စီး|လေး|နေ့စဉ်
-ห้า|ဟာ|ငါး|နေ့စဉ်
-หก|ဟို့က်|ခြောက်|နေ့စဉ်
-เจ็ด|ကျက်|ခုနစ်|နေ့စဉ်
-แปด|ပဲတ်|ရှစ်|နေ့စဉ်
-เก้า|က้าว|ကိုး|နေ့စဉ်
-สิบ|စစ်ပ်|ဆယ်|နေ့စဉ်
-วันนี้|ဝန်နီး|ဒီနေ့|နေ့စဉ်
-พรุ่งนี้|ဖရုင်နီး|မနက်ဖြန်|နေ့စဉ်
-เมื่อวาน|မူးဝါန်|မနေ့က|နေ့စဉ်
-ตอนนี้|တွန်နီး|အခု|နေ့စဉ်
-เร็ว|ရေဝ်|မြန်တယ်|နေ့စဉ်
-ช้า|ချာ|နှေးတယ်|နေ့စဉ်
-มาก|မာ့က်|အများကြီး|နေ့စဉ်
-น้อย|နွိုင်း|နည်းနည်း|နေ့စဉ်
-เท่าไหร่|ထောဝ်ရိုင်|ဘယ်လောက်လဲ|နေ့စဉ်
-แพง|ဖဲင်|ဈေးကြီးတယ်|နေ့စဉ်
-ถูก|ထူးက်|ဈေးပေါတယ် / မှန်တယ်|နေ့စဉ်
-เงิน|ငန်|ပိုက်ဆံ|နေ့စဉ်
-งาน|ငါန်|အလုပ်|နေ့စဉ်
-เพื่อน|ဖူးအန်|သူငယ်ချင်း|နေ့စဉ်
-ครอบครัว|ခရော်ပ်ခရัว|မိသားစု|နေ့စဉ်
-สวย|ဆွယ်|လှတယ်|နေ့စဉ်
-เหนื่อย|နွိုင်း|ပင်ပန်းတယ်|နေ့စဉ်
-สนุก|စနုက်|ပျော်စရာကောင်းတယ်|နေ့စဉ်
-เข้าใจ|ခေါင်ใจ|နားလည်တယ်|နေ့စဉ်
-ไม่เข้าใจ|မိုင်ခေါင်ใจ|နားမလည်ဘူး|နေ့စဉ်
-พูดช้าๆ|ဖူးတ်ချာချာ|ဖြည်းဖြည်းပြောပါ|နေ့စဉ်
-ทำอะไร|ထမ်အะရိုင်|ဘာလုပ်နေတာလဲ|နေ့စဉ်
-ชื่อ|ချူး|နာမည်|နေ့စဉ်
-อายุ|အာယု|အသက်|နေ့စဉ်
-ดี|ဒီ|ကောင်းတယ်|နေ့စဉ်
-ไม่เป็นไร|မိုင်ပင်ရိုင်|ရပါတယ်|နေ့စဉ်`;
-const W=raw.split('\n').map(x=>x.split('|'));
-let saved=JSON.parse(localStorage.getItem('thSaved')||'[]'),learned=JSON.parse(localStorage.getItem('thLearned')||'[]'),best=+(localStorage.getItem('thBest')||0),quiz=[],qi=0,score=0;
-const $=s=>document.querySelector(s);function say(t){if(!speechSynthesis){alert('Browser မှာ အသံဖတ်စနစ်မရနိုင်ပါ');return}let u=new SpeechSynthesisUtterance(t);u.lang='th-TH';u.rate=.82;speechSynthesis.cancel();speechSynthesis.speak(u);if(W.some(w=>w[0]===t)&&!learned.includes(t)){learned.push(t);localStorage.setItem('thLearned',JSON.stringify(learned));stats()}}
-function show(id){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));window.scrollTo(0,0);if(id==='saved')savedRender();if(id==='progress')$('#progressInfo').textContent=`လေ့လာပြီး ${learned.length} လုံး • သိမ်းထား ${saved.length} လုံး • Quiz အကောင်းဆုံး ${best}/10`}
-document.addEventListener('click',e=>{let p=e.target.closest('[data-page]');if(p)show(p.dataset.page);let sp=e.target.closest('[data-say]');if(sp)say(sp.dataset.say);let sv=e.target.closest('[data-save]');if(sv){let t=sv.dataset.save;saved=saved.includes(t)?saved.filter(x=>x!==t):[...saved,t];localStorage.setItem('thSaved',JSON.stringify(saved));renderWords();savedRender();stats()}});
-function card(w){return `<div class="word"><div><span class="thai">${w[0]}</span><small>အသံထွက် — ${w[1]}</small><small>${w[2]}</small></div><div><button data-say="${w[0]}">🔊</button><button data-save="${w[0]}">${saved.includes(w[0])?'⭐':'☆'}</button></div></div>`}
-function renderWords(){let q=($('#search')?.value||'').toLowerCase();$('#words').innerHTML=W.filter(w=>w.join(' ').toLowerCase().includes(q)).map(card).join('')}
-function savedRender(){$('#savedWords').innerHTML=W.filter(w=>saved.includes(w[0])).map(card).join('')||'မသိမ်းရသေးပါ။'}
-function stats(){$('#learned').textContent=learned.length;$('#savedCount').textContent=saved.length;$('#best').textContent=best}$('#search').addEventListener('input',renderWords);
-$('#letters').innerHTML=C.map(c=>`<button class="letter" data-say="${c[0]}"><b class="thai">${c[0]}</b><small>${c[1]} • ${{m:'အလယ်',h:'အမြင့်',l:'အနိမ့်'}[c[2]]}</small></button>`).join('');
-$('#vowelList').innerHTML=V.map(v=>`<div class="info"><b class="thai">${v[0]} — ${v[1]}</b><br>${v[2]}</div>`).join('');
-$('#finalList').innerHTML=F.map(v=>`<div class="info"><b>${v[0]}　${v[1]}</b><br>${v[2]}</div>`).join('');
-$('#toneList').innerHTML=T.map(v=>`<div class="info"><b class="thai">${v[0]}</b><br>${v[1]}</div>`).join('');
-function begin(){quiz=[...W].sort(()=>Math.random()-.5).slice(0,10);qi=0;score=0;question()}
-function question(){if(qi>=10){best=Math.max(best,score);localStorage.setItem('thBest',best);stats();$('#quizBox').innerHTML=`ပြီးပါပြီ 🎉 <h2>${score}/10</h2><button id="start">ထပ်ဖြေမယ်</button>`;return}let w=quiz[qi],opts=[w[2],...W.filter(x=>x[2]!==w[2]).sort(()=>Math.random()-.5).slice(0,3).map(x=>x[2])].sort(()=>Math.random()-.5);$('#quizBox').innerHTML=`မေးခွန်း ${qi+1}/10 <div class="thai" style="font-size:34px;text-align:center;margin:20px">${w[0]}</div>အဓိပ္ပာယ်မှန်ကို ရွေးပါ`+opts.map(o=>`<button data-opt="${o}" style="display:block;width:100%;margin:8px 0;background:#f1f0ff;color:#333">${o}</button>`).join('')+'<p id="feedback"></p>'}
-$('#quizBox').addEventListener('click',e=>{if(e.target.id==='start'){begin();return}if(e.target.dataset.opt){let ok=e.target.dataset.opt===quiz[qi][2];if(ok)score++;$('#feedback').textContent=ok?'မှန်ပါတယ် ✓':'အဖြေမှန် — '+quiz[qi][2];setTimeout(()=>{qi++;question()},750)}});$('#start').addEventListener('click',begin);
-$('#reset').onclick=()=>{if(confirm('မှတ်တမ်းအားလုံး ဖျက်မလား?')){saved=[];learned=[];best=0;['thSaved','thLearned','thBest'].forEach(k=>localStorage.removeItem(k));stats();savedRender()}};
-stats();renderWords();if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
+
+"use strict";
+
+/* ==================================
+   THAI CONSONANTS
+================================== */
+
+const consonants = [
+["ก","ko kai","က","middle"],
+["ข","kho khai","ခ","high"],
+["ฃ","kho khuat","ခ","high"],
+["ค","kho khwai","ခ","low"],
+["ฅ","kho khon","ခ","low"],
+["ฆ","kho ra-khang","ခ","low"],
+["ง","ngo ngu","င","low"],
+["จ","cho chan","ကျ","middle"],
+["ฉ","cho ching","ချ","high"],
+["ช","cho chang","ချ","low"],
+["ซ","so so","စ","low"],
+["ฌ","cho choe","ချ","low"],
+["ญ","yo ying","ည","low"],
+["ฎ","do cha-da","ဒ","middle"],
+["ฏ","to pa-tak","တ","middle"],
+["ฐ","tho than","ထ","high"],
+["ฑ","tho montho","ထ","low"],
+["ฒ","tho phu-thao","ထ","low"],
+["ณ","no nen","န","low"],
+["ด","do dek","ဒ","middle"],
+["ต","to tao","တ","middle"],
+["ถ","tho thung","ထ","high"],
+["ท","tho thahan","ထ","low"],
+["ธ","tho thong","ထ","low"],
+["น","no nu","န","low"],
+["บ","bo baimai","ဘ","middle"],
+["ป","po pla","ပ","middle"],
+["ผ","pho phueng","ဖ","high"],
+["ฝ","fo fa","ဖ","high"],
+["พ","pho phan","ဖ","low"],
+["ฟ","fo fan","ဖ","low"],
+["ภ","pho samphao","ဖ","low"],
+["ม","mo ma","မ","low"],
+["ย","yo yak","ယ","low"],
+["ร","ro ruea","ရ","low"],
+["ล","lo ling","လ","low"],
+["ว","wo waen","ဝ","low"],
+["ศ","so sala","စ","high"],
+["ษ","so ruesi","စ","high"],
+["ส","so suea","စ","high"],
+["ห","ho hip","ဟ","high"],
+["ฬ","lo chu-la","လ","low"],
+["อ","o ang","အ","middle"],
+["ฮ","ho nokhuk","ဟ","low"]
+];
+
+/* ==================================
+   VOWELS
+================================== */
+
+const vowels = [
+["ะ","a","အတို"],
+["า","aa","အရှည်"],
+["ิ","i","အတို"],
+["ี","ii","အရှည်"],
+["ึ","ue","အတို"],
+["ื","uee","အရှည်"],
+["ุ","u","အတို"],
+["ู","uu","အရှည်"],
+["เ-ะ","e","အတို"],
+["เ","ee","အရှည်"],
+["แ-ะ","ae","အတို"],
+["แ","aae","အရှည်"],
+["โ-ะ","o","အတို"],
+["โ","oo","အရှည်"],
+["เ-าะ","aw","အတို"],
+["อ","aw","အရှည်"],
+["เ-อะ","oe","အတို"],
+["เ-อ","oee","အရှည်"],
+["ไ","ai","အရှည်"],
+["ใ","ai","အရှည်"],
+["เอา","ao","ပေါင်းစပ်"],
+["เอีย","ia","ပေါင်းစပ်"],
+["เอือ","uea","ပေါင်းစပ်"],
+["อัว","ua","ပေါင်းစပ်"]
+];
+
+/* ==================================
+   TONE MARKS
+================================== */
+
+const tones = [
+{
+ mark:"ไม่มี",
+ name:"အမှတ်အသားမပါ",
+ thai:"เสียงสามัญ",
+ detail:"ပုံမှန်အသံ။ စာလုံး၏ ဗျည်းအုပ်စု၊ သရအရှည်အတိုနှင့် အဆုံးသတ်အသံအပေါ် မူတည်ပါတယ်။"
+},
+{
+ mark:"่",
+ name:"ไม้เอก",
+ thai:"เสียงเอก",
+ detail:"ဗျည်းအုပ်စုနှင့် စာလုံးအမျိုးအစားပေါ်မူတည်၍ အသံထွက်ပြောင်းပါတယ်။"
+},
+{
+ mark:"้",
+ name:"ไม้โท",
+ thai:"เสียงโท",
+ detail:"ဗျည်းအုပ်စုနှင့် စာလုံးအမျိုးအစားပေါ်မူတည်၍ အသံထွက်ပြောင်းပါတယ်။"
+},
+{
+ mark:"๊",
+ name:"ไม้ตรี",
+ thai:"เสียงตรี",
+ detail:"အသံအမှတ်အသားဖြစ်ပြီး အဓိကအားဖြင့် အလယ်တန်းဗျည်းများတွင် အသုံးပြုပါတယ်။"
+},
+{
+ mark:"๋",
+ name:"ไม้จัตวา",
+ thai:"เสียงจัตวา",
+ detail:"အသံအမှတ်အသားဖြစ်ပြီး အဓိကအားဖြင့် အလယ်တန်းဗျည်းများတွင် အသုံးပြုပါတယ်။"
+}
+];
+
+/* ==================================
+   FINAL CONSONANTS
+================================== */
+
+const finals = [
+["ก","k","က","ဥပမာ มาก"],
+["ข ค ฆ","k","က","နောက်ဆုံးတွင် k အသံ"],
+["ด จ ช ซ ฎ ฏ ฐ ฑ ฒ ต ถ ท ธ ศ ษ ส","t","တ်","နောက်ဆုံးတွင် t အသံ"],
+["บ ป พ ฟ ภ","p","ပ်","နောက်ဆုံးတွင် p အသံ"],
+["ง","ng","င","နှာခေါင်းသံ ng"],
+["น ณ ญ ร ล ฬ","n","န်","နောက်ဆုံးတွင် n အသံ"],
+["ม","m","မ်","နောက်ဆုံးတွင် m အသံ"],
+["ย","y","ယ","သရနှင့်ပေါင်းစပ်သည့် y အသံ"],
+["ว","w","ဝ","သရနှင့်ပေါင်းစပ်သည့် w အသံ"]
+];
+
+/* ==================================
+   VOCABULARY
+================================== */
+
+const words = [
+["สวัสดี","မင်္ဂလာပါ","ဆဝတ်ဒီ"],
+["ขอบคุณ","ကျေးဇူးတင်ပါတယ်","ခေါ့ပ်ခုန်"],
+["ขอโทษ","တောင်းပန်ပါတယ်","ခေါ်ထို့"],
+["ใช่","ဟုတ်တယ်","ချိုင့်"],
+["ไม่ใช่","မဟုတ်ဘူး","မိုင်ချိုင့်"],
+["ไม่","မဟုတ် / မ","မိုင်"],
+["ได้","ရတယ်","ဒိုင်"],
+["ไม่ได้","မရဘူး","မိုင်ဒိုင်"],
+["ไป","သွားသည်","ပိုင်"],
+["มา","လာသည်","မာ"],
+["กิน","စားသည်","ကင်"],
+["ดื่ม","သောက်သည်","ဒွမ်"],
+["น้ำ","ရေ","နမ်"],
+["ข้าว","ထမင်း","ခ้าว"],
+["อาหาร","အစားအစာ","အာဟာန်"],
+["บ้าน","အိမ်","ဘ้าน"],
+["โรงเรียน","ကျောင်း","ရုန်းရီးယန်း"],
+["ทำงาน","အလုပ်လုပ်သည်","ထမ်ငါန်"],
+["เพื่อน","သူငယ်ချင်း","ဖွန်း"],
+["ครอบครัว","မိသားစု","ခရော့ပ်ခရัว"],
+["แม่","အမေ","မဲ"],
+["พ่อ","အဖေ","ဖော်"],
+["พี่","အစ်ကို / အစ်မ","ဖီး"],
+["น้อง","ညီ / ညီမ","နောင့်"],
+["คน","လူ","ခွန်"],
+["เด็ก","ကလေး","ဒက်"],
+["ผู้หญิง","အမျိုးသမီး","ဖူးယင်"],
+["ผู้ชาย","အမျိုးသား","ဖူးချိုင်"],
+["วันนี้","ဒီနေ့","ဝန်နီး"],
+["พรุ่งนี้","မနက်ဖြန်","ဖရုန်းနီး"],
+["เมื่อวาน","မနေ့က","မူအဝါန်"],
+["ตอนนี้","အခု","တွန်းနီး"],
+["เวลา","အချိန်","ဝေလာ"],
+["เช้า","မနက်","ချော"],
+["กลางคืน","ည","ကလားင်ခွန်း"],
+["เงิน","ပိုက်ဆံ","ငန်"],
+["ราคา","စျေးနှုန်း","ရာခါ"],
+["เท่าไหร่","ဘယ်လောက်လဲ","ထောက်ရိုင်"],
+["ที่ไหน","ဘယ်နေရာလဲ","ထီးနိုင်"],
+["อะไร","ဘာလဲ","အရိုင်"],
+["ใคร","ဘယ်သူလဲ","ခရိုင်"],
+["เมื่อไร","ဘယ်အချိန်လဲ","မူအရိုင်"],
+["ห้องน้ำ","အိမ်သာ","ဟောင့်နမ်"],
+["ตลาด","စျေး","တလတ်"],
+["รถ","ကား","ရို့"],
+["รถไฟ","ရထား","ရို့ဖိုင်"],
+["โทรศัพท์","ဖုန်း","ထိုရဆပ်"],
+["หนังสือ","စာအုပ်","နန်ဆူး"],
+["ภาษาไทย","ထိုင်းဘာသာစကား","ဖာဆာထိုင်း"],
+["เรียน","သင်ယူသည်","ရီးယန်း"],
+["อ่าน","ဖတ်သည်","အာန်"],
+["เขียน","ရေးသည်","ခီယန်"],
+["พูด","ပြောသည်","ဖူးတ်"],
+["ฟัง","နားထောင်သည်","ဖัง"],
+["เข้าใจ","နားလည်သည်","ခေါ်ချိုင်"],
+["ไม่เข้าใจ","နားမလည်ဘူး","မိုင်ခေါ်ချိုင်"],
+["สวย","လှတယ်","ဆွေး"],
+["ดี","ကောင်းတယ်","ဒီ"],
+["ใหญ่","ကြီးတယ်","ယိုင်"],
+["เล็ก","သေးတယ်","လက်"],
+["ร้อน","ပူတယ်","ရွန်"],
+["หนาว","အေးတယ်","နာဝ်"],
+["เร็ว","မြန်တယ်","ရေဝ်"],
+["ช้า","နှေးတယ်","ချာ"],
+["ง่าย","လွယ်တယ်","င่าย"],
+["ยาก","ခက်တယ်","ယာ့ခ်"],
+["อร่อย","အရသာရှိတယ်","အရိုင်း"],
+["หิว","ဗိုက်ဆာတယ်","ဟิว"],
+["เหนื่อย","ပင်ပန်းတယ်","နွေး"],
+["รัก","ချစ်တယ်","ရတ်"],
+["ชอบ","ကြိုက်တယ်","ချော့ပ်"],
+["ต้องการ","လိုချင်တယ်","တောင့်ကာန်"],
+["ช่วย","ကူညီသည်","ချွေး"],
+["รอ","စောင့်သည်","ရော်"],
+["ซื้อ","ဝယ်သည်","ဆူး"],
+["ขาย","ရောင်းသည်","ခိုင်"],
+["เปิด","ဖွင့်သည်","ပဲတ်"],
+["ปิด","ပိတ်သည်","ပစ်"],
+["นั่ง","ထိုင်သည်","နန်"],
+["นอน","အိပ်သည်","နော်န်"],
+["เดิน","လမ်းလျှောက်သည်","ဒန်"],
+["วิ่ง","ပြေးသည်","ဝင်"],
+["ทำ","လုပ်သည်","ထမ်"],
+["ดู","ကြည့်သည်","ဒူး"],
+["รู้","သိသည်","ရူး"],
+["คิด","စဉ်းစားသည်","ခစ်"],
+["ถาม","မေးသည်","ထာမ်"],
+["ตอบ","ဖြေသည်","တော့ပ်"],
+["หนึ่ง","တစ်","နွင်"],
+["สอง","နှစ်","ဆောင့်"],
+["สาม","သုံး","ဆာမ်"],
+["สี่","လေး","ဆီး"],
+["ห้า","ငါး","ဟာ"],
+["หก","ခြောက်","ဟော့ခ်"],
+["เจ็ด","ခုနစ်","เจ็ด"],
+["แปด","ရှစ်","ပဲတ်"],
+["เก้า","ကိုး","က้าว"],
+["สิบ","ဆယ်","စစ်"],
+["ร้อย","တစ်ရာ","ရွိုင်း"],
+["พัน","တစ်ထောင်","ဖန်"],
+["บาท","ဘတ်","ဘတ်"],
+["อันนี้","ဒီဟာ","အန်နီး"],
+["อันนั้น","ဟိုဟာ","အန်နန်"],
+["ที่นี่","ဒီမှာ","ထီးနီး"],
+["ที่นั่น","ဟိုမှာ","ထီးနန်"],
+["ข้างหน้า","ရှေ့မှာ","ခါင်နာ"],
+["ข้างหลัง","နောက်မှာ","ခါင်လန်"]
+];
+
+/* ==================================
+   DAILY SENTENCES
+================================== */
+
+const sentences = [
+["คุณชื่ออะไร","နာမည်ဘယ်လိုခေါ်လဲ","ခွန်ချူးအရိုင်"],
+["ผมชื่อ...","ကျွန်တော့်နာမည် ... ပါ","ဖုမ်ချူး"],
+["ฉันชื่อ...","ကျွန်မနာမည် ... ပါ","ချန်ချူး"],
+["คุณมาจากไหน","ဘယ်ကလာတာလဲ","ခွန်မာကျာ့ခ်နိုင်"],
+["ผมมาจากเมียนมา","ကျွန်တော် မြန်မာနိုင်ငံကပါ","ဖုမ်မာကျာ့ခ်မီယန်မာ"],
+["คุณพูดภาษาไทยได้ไหม","ထိုင်းစကားပြောတတ်လား","ခွန်ဖူးတ်ဖာဆာထိုင်းဒိုင်မိုင်"],
+["พูดได้นิดหน่อย","နည်းနည်းပြောတတ်ပါတယ်","ဖူးတ်ဒိုင်နစ်နွိုင်း"],
+["ช่วยพูดช้าๆ ได้ไหม","ဖြည်းဖြည်းပြောပေးလို့ရမလား","ချွေးဖူးတ်ချာချာဒိုင်မိုင်"],
+["ราคาเท่าไหร่","စျေးဘယ်လောက်လဲ","ရာခါထောက်ရိုင်"],
+["ลดราคาได้ไหม","စျေးလျှော့လို့ရမလား","လော့ရာခါဒိုင်မိုင်"],
+["ห้องน้ำอยู่ที่ไหน","အိမ်သာဘယ်မှာလဲ","ဟောင့်နမ်ယူထီးနိုင်"],
+["ฉันไม่เข้าใจ","ကျွန်မ နားမလည်ဘူး","ချန်မိုင်ခေါ်ချိုင်"],
+["ขอบคุณมาก","ကျေးဇူးအများကြီးတင်ပါတယ်","ခေါ့ပ်ခုန်မာ့ခ်"],
+["ไม่เป็นไร","ရပါတယ် / ကိစ္စမရှိပါဘူး","မိုင်ပန်ရိုင်"],
+["ยินดีที่ได้รู้จัก","တွေ့ရတာ ဝမ်းသာပါတယ်","ယင်ဒီထီးဒိုင်ရူးကျက်"]
+];
+
+/* ==================================
+   STORAGE
+================================== */
+
+function readStorage(key, fallback) {
+    try {
+        const value = localStorage.getItem(key);
+        return value ? JSON.parse(value) : fallback;
+    } catch {
+        return fallback;
+    }
+}
+
+let savedWords = readStorage("thai_saved", []);
+let completed = readStorage("thai_completed", []);
+let score = Number(localStorage.getItem("thai_score") || 0);
+
+function saveData() {
+    localStorage.setItem("thai_saved", JSON.stringify(savedWords));
+    localStorage.setItem("thai_completed", JSON.stringify(completed));
+    localStorage.setItem("thai_score", String(score));
+}
+
+/* ==================================
+   NAVIGATION
+================================== */
+
+function showPage(id) {
+    const page = document.getElementById(id);
+    if (!page) return;
+
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+
+    page.classList.add("active");
+
+    const nav = document.querySelector(`.nav-btn[data-page="${id}"]`);
+    if (nav) nav.classList.add("active");
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    if (id === "saved") renderSaved();
+    if (id === "words") renderWords();
+    if (id === "practice") renderQuiz();
+}
+
+document.getElementById("navigation").addEventListener("click", event => {
+    const button = event.target.closest("[data-page]");
+    if (button) showPage(button.dataset.page);
+});
+
+document.addEventListener("click", event => {
+    const button = event.target.closest("[data-goto]");
+    if (button) showPage(button.dataset.goto);
+});
+
+/* ==================================
+   SPEECH
+================================== */
+
+function speakThai(text) {
+    if (!("speechSynthesis" in window)) {
+        alert("ဒီ Browser မှာ အသံဖတ်စနစ် မထောက်ပံ့ပါ။");
+        return;
+    }
+
+    speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "th-TH";
+    utterance.rate = 0.8;
+    utterance.pitch = 1;
+
+    speechSynthesis.speak(utterance);
+}
+
+/* ==================================
+   ALPHABET
+================================== */
+
+let currentClass = "all";
+
+function renderAlphabet() {
+    const container = document.getElementById("alphabet-list");
+
+    const filtered = consonants.filter(item =>
+        currentClass === "all" || item[3] === currentClass
+    );
+
+    container.innerHTML = filtered.map(item => `
+        <article class="alphabet-card">
+            <div class="alphabet-letter thai">${item[0]}</div>
+            <div class="alphabet-name">${item[1]}</div>
+            <div class="alphabet-sound">မြန်မာအသံ: ${item[2]}</div>
+            <span class="class-label">${className(item[3])}</span>
+            <br>
+            <button class="icon-btn" data-speak="${item[0]}" aria-label="အသံနားထောင်ရန်">🔊</button>
+            <button class="icon-btn" data-complete="alphabet-${item[0]}" aria-label="လေ့လာပြီးမှတ်ရန်">✓</button>
+        </article>
+    `).join("");
+}
+
+function className(value) {
+    return {
+        middle: "အလယ်တန်း",
+        high: "အမြင့်တန်း",
+        low: "အနိမ့်တန်း"
+    }[value];
+}
+
+document.querySelectorAll("[data-class]").forEach(button => {
+    button.addEventListener("click", () => {
+        document.querySelectorAll("[data-class]").forEach(b => b.classList.remove("active"));
+        button.classList.add("active");
+        currentClass = button.dataset.class;
+        renderAlphabet();
+    });
+});
+
+/* ==================================
+   VOWELS
+================================== */
+
+function renderVowels() {
+    document.getElementById("vowel-list").innerHTML = vowels.map(v => `
+        <article class="vowel-card">
+            <div class="vowel-letter thai">${v[0]}</div>
+            <div class="vowel-name">${v[1]}</div>
+            <div class="vowel-sound">${v[2]}</div>
+            <button class="icon-btn" data-speak="${v[0].replaceAll("-", "")}">🔊</button>
+            <button class="icon-btn" data-complete="vowel-${v[0]}">✓</button>
+        </article>
+    `).join("");
+}
+
+/* ==================================
+   TONES
+================================== */
+
+function renderTones() {
+    document.getElementById("tone-list").innerHTML = tones.map(t => `
+        <article class="tone-card">
+            <div class="tone-mark thai">${t.mark}</div>
+            <h3>${t.name}</h3>
+            <div class="thai">${t.thai}</div>
+            <p>${t.detail}</p>
+        </article>
+    `).join("");
+}
+
+/* ==================================
+   FINAL CONSONANTS
+================================== */
+
+function renderFinals() {
+    document.getElementById("final-list").innerHTML = finals.map(f => `
+        <article class="final-card">
+            <h3 class="thai">${f[0]}</h3>
+            <b>အဆုံးသတ်အသံ: ${f[1]}</b>
+            <p>မြန်မာအသံ: ${f[2]}</p>
+            <p class="thai">${f[3]}</p>
+        </article>
+    `).join("");
+}
+
+/* ==================================
+   VOCABULARY
+================================== */
+
+function wordCard(word, index) {
+    const isSaved = savedWords.includes(index);
+
+    return `
+        <article class="word-card">
+            <div class="word-main">
+                <div class="word-thai thai">${word[0]}</div>
+                <div class="word-meaning">${word[1]}</div>
+                <div class="word-pronunciation">အနီးစပ်ဆုံးအသံ: ${word[2]}</div>
+            </div>
+            <div class="word-actions">
+                <button class="icon-btn" data-speak="${word[0]}" aria-label="အသံနားထောင်ရန်">🔊</button>
+                <button class="icon-btn" data-save="${index}" aria-label="Favorite သိမ်းရန်">${isSaved ? "★" : "☆"}</button>
+            </div>
+        </article>
+    `;
+}
+
+function renderWords(query = "") {
+    const container = document.getElementById("word-list");
+    const normalized = query.trim().toLowerCase();
+
+    const filtered = words.map((word, index) => ({ word, index }))
+        .filter(item => item.word.join(" ").toLowerCase().includes(normalized));
+
+    container.innerHTML = filtered.length
+        ? filtered.map(item => wordCard(item.word, item.index)).join("")
+        : '<div class="empty-message">ရှာဖွေမှုနှင့် ကိုက်ညီသော စကားလုံးမတွေ့ပါ။</div>';
+}
+
+document.getElementById("word-search").addEventListener("input", event => {
+    renderWords(event.target.value);
+});
+
+/* ==================================
+   FAVORITES
+================================== */
+
+function renderSaved() {
+    const container = document.getElementById("saved-list");
+
+    container.innerHTML = savedWords.length
+        ? savedWords.map(index => {
+            if (!words[index]) return "";
+            return wordCard(words[index], index);
+        }).join("")
+        : '<div class="empty-message">သိမ်းထားသော စကားလုံး မရှိသေးပါ။</div>';
+}
+
+function toggleSaved(index) {
+    if (savedWords.includes(index)) {
+        savedWords = savedWords.filter(i => i !== index);
+    } else {
+        savedWords.push(index);
+    }
+
+    saveData();
+    renderWords(document.getElementById("word-search").value);
+    renderSaved();
+}
+
+/* ==================================
+   QUIZ
+================================== */
+
+let quizQuestion = null;
+let quizAnswered = false;
+let quizNumber = 0;
+
+function shuffle(array) {
+    return [...array].sort(() => Math.random() - 0.5);
+}
+
+function renderQuiz() {
+    const correctIndex = Math.floor(Math.random() * words.length);
+    const correct = words[correctIndex];
+
+    const options = shuffle([
+        correct,
+        ...shuffle(words.filter((_, i) => i !== correctIndex)).slice(0, 3)
+    ]);
+
+    quizQuestion = {
+        correct,
+        options
+    };
+
+    quizAnswered = false;
+    quizNumber++;
+
+    document.getElementById("quiz-number").textContent = quizNumber;
+    document.getElementById("quiz-question").innerHTML =
+        `"<span class="thai">${correct[0]}</span>" ရဲ့ အဓိပ္ပာယ်က ဘာလဲ။`;
+
+    document.getElementById("quiz-feedback").textContent = "";
+
+    document.getElementById("quiz-options").innerHTML = options.map((item, i) => `
+        <button class="quiz-option" data-answer="${i}">
+            ${i + 1}. ${item[1]}
+        </button>
+    `).join("");
+
+    document.getElementById("quiz-score").textContent = score;
+}
+
+document.getElementById("quiz-options").addEventListener("click", event => {
+    const button = event.target.closest("[data-answer]");
+    if (!button || quizAnswered) return;
+
+    quizAnswered = true;
+
+    const selected = quizQuestion.options[Number(button.dataset.answer)];
+    const correct = selected[0] === quizQuestion.correct[0];
+
+    document.querySelectorAll(".quiz-option").forEach(option => {
+        const item = quizQuestion.options[Number(option.dataset.answer)];
+
+        if (item[0] === quizQuestion.correct[0]) {
+            option.classList.add("correct");
+        }
+    });
+
+    if (correct) {
+        score++;
+        document.getElementById("quiz-feedback").textContent = "မှန်ပါတယ်။ အလွန်ကောင်းပါတယ်။";
+    } else {
+        button.classList.add("wrong");
+        document.getElementById("quiz-feedback").textContent =
+            `မမှန်သေးပါ။ အဖြေမှန်က ${quizQuestion.correct[1]} ဖြစ်ပါတယ်။`;
+    }
+
+    document.getElementById("quiz-score").textContent = score;
+    localStorage.setItem("thai_score", String(score));
+});
+
+document.getElementById("next-question").addEventListener("click", () => {
+    renderQuiz();
+});
+
+/* ==================================
+   COMPLETED LESSONS
+================================== */
+
+function toggleCompleted(id) {
+    if (completed.includes(id)) {
+        completed = completed.filter(x => x !== id);
+    } else {
+        completed.push(id);
+    }
+
+    saveData();
+    updateProgress();
+}
+
+function updateProgress() {
+    const total = consonants.length + vowels.length;
+    const percent = Math.round((completed.length / total) * 100);
+
+    document.getElementById("progress-bar").style.width =
+        Math.min(percent, 100) + "%";
+
+    document.getElementById("progress-text").textContent =
+        `လေ့လာပြီး ${completed.length} / ${total} ခု (${Math.min(percent, 100)}%)`;
+}
+
+/* ==================================
+   GLOBAL BUTTON HANDLER
+================================== */
+
+document.addEventListener("click", event => {
+    const speakButton = event.target.closest("[data-speak]");
+    if (speakButton) speakThai(speakButton.dataset.speak);
+
+    const saveButton = event.target.closest("[data-save]");
+    if (saveButton) toggleSaved(Number(saveButton.dataset.save));
+
+    const completeButton = event.target.closest("[data-complete]");
+    if (completeButton) toggleCompleted(completeButton.dataset.complete);
+});
+
+/* ==================================
+   SENTENCES
+================================== */
+
+function renderSentences() {
+    document.getElementById("sentence-list").innerHTML = sentences.map(s => `
+        <article class="sentence-card">
+            <div class="word-thai thai">${s[0]}</div>
+            <div>${s[1]}</div>
+            <div class="word-pronunciation">အနီးစပ်ဆုံးအသံ: ${s[2]}</div>
+            <button class="icon-btn" data-speak="${s[0]}">🔊 အသံနားထောင်ရန်</button>
+        </article>
+    `).join("");
+}
+
+/* ==================================
+   INITIALIZE
+================================== */
+
+renderAlphabet();
+renderVowels();
+renderTones();
+renderWords();
+renderFinals();
+renderSentences();
+updateProgress();
+
+if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch(error => {
+            console.error("Service worker registration failed:", error);
+        });
+    });
+}
