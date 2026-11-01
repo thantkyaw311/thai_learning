@@ -1,10 +1,260 @@
-<!doctype html><html lang="my"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#5b55d9"><link rel="manifest" href="manifest.json"><link rel="stylesheet" href="style.css"><title>Thai Learning</title></head><body>
-<header><b>🇹🇭 Thai Learning</b><small>မြန်မာဘာသာဖြင့် ထိုင်းစာလေ့လာရန်</small></header><main>
-<section id="home" class="page"><div class="hero"><h1>ထိုင်းစာကို အခြေခံမှ စလေ့လာကြမယ်</h1><p>ဗျည်း၊ သရ၊ အသတ်၊ အသံထွက်နှင့် နေ့စဉ်သုံးစကားလုံးများ</p></div><div class="stats"><div><b id="learned">0</b><small>လေ့လာပြီး</small></div><div><b id="savedCount">0</b><small>သိမ်းထား</small></div><div><b id="best">0</b><small>Quiz အမှတ်</small></div></div><div class="grid"><button data-page="alphabet">ก–ฮ<br>ဗျည်း ၄၄ လုံး</button><button data-page="vowels">สระ<br>သရများ</button><button data-page="finals">ตัวสะกด<br>အသတ်များ</button><button data-page="tones">วรรณยุกต์<br>အသံ ၅ မျိုး</button><button data-page="vocab">📚 Vocabulary<br>စကားလုံး ၁၀၀+</button><button data-page="quiz">📝 Quiz<br>လေ့ကျင့်ခန်း</button><button data-page="lessons">🎓 Lessons<br>သင်ခန်းစာ</button><button data-page="saved">⭐ Saved Words<br>သိမ်းထားသောစာလုံး</button><button data-page="progress">📊 Progress<br>မှတ်တမ်း</button></div></section>
-<section id="alphabet" class="page"><h2>ထိုင်းဗျည်း ၄၄ လုံး</h2><p>စာလုံးကိုနှိပ်၍ အသံနားထောင်ပါ။</p><div id="letters" class="letters"></div></section>
-<section id="vowels" class="page"><h2>ထိုင်းသရများ</h2><div id="vowelList"></div></section><section id="finals" class="page"><h2>အသတ် / စာလုံးအဆုံးသံ</h2><div id="finalList"></div></section><section id="tones" class="page"><h2>အသံအနိမ့်အမြင့် ၅ မျိုး</h2><div id="toneList"></div></section>
-<section id="vocab" class="page"><h2>Vocabulary — ထိုင်းစကားလုံး ၁၀၀+</h2><input id="search" placeholder="စကားလုံး / အဓိပ္ပာယ် ရှာရန်"><div id="words"></div></section>
-<section id="quiz" class="page"><h2>Quiz</h2><div id="quizBox"><button id="start">Quiz စတင်ရန်</button></div></section>
-<section id="lessons" class="page"><h2>အဆင့်လိုက် သင်ခန်းစာ</h2><div class="card">၁။ ဗျည်း ၄၄ လုံး — အလယ်၊ အမြင့်၊ အနိမ့် အုပ်စုများ</div><div class="card">၂။ သရ — အတို၊ အရှည်နှင့် သရပေါင်းစပ်ပုံ</div><div class="card">၃။ အသတ် — စာလုံးအဆုံးသံ ၈ မျိုး</div><div class="card">၄။ အသံ ၅ မျိုး — အသံအမှတ်အသားနှင့် စည်းမျဉ်း</div><div class="card">၅။ စကားလုံး ၁၀၀+ — နေ့စဉ်သုံးဝေါဟာရ</div><div class="card">၆။ Quiz — ပြန်လည်လေ့ကျင့်ခြင်း</div></section>
-<section id="saved" class="page"><h2>⭐ Saved Words</h2><div id="savedWords"></div></section><section id="progress" class="page"><h2>📊 Progress</h2><div class="card" id="progressInfo"></div><button id="reset">မှတ်တမ်းအားလုံး ဖျက်ရန်</button></section></main>
-<nav><button data-page="home">⌂<small>မူလ</small></button><button data-page="lessons">▤<small>သင်ခန်းစာ</small></button><button data-page="vocab">ก<small>စကားလုံး</small></button><button data-page="saved">☆<small>သိမ်းထား</small></button><button data-page="progress">▥<small>မှတ်တမ်း</small></button></nav><script src="app.js"></script></body></html>
+
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#2457a7">
+    <meta name="description" content="မြန်မာဘာသာဖြင့် ထိုင်းစာကို အခြေခံမှစ၍ လေ့လာနိုင်သော App">
+
+    <title>Thai Learning - ထိုင်းစာလေ့လာရန်</title>
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="top-header">
+    <div class="header-content">
+        <div>
+            <h1>Thai Learning</h1>
+            <p>မြန်မာဘာသာဖြင့် ထိုင်းစာ လေ့လာကြမယ်</p>
+        </div>
+
+        <div class="header-icon">ก</div>
+    </div>
+</header>
+
+<div class="app-container">
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <button class="nav-btn active" data-page="home">ပင်မ</button>
+        <button class="nav-btn" data-page="alphabet">ဗျည်း</button>
+        <button class="nav-btn" data-page="vowels">သရ</button>
+        <button class="nav-btn" data-page="tones">အသံထွက်</button>
+        <button class="nav-btn" data-page="words">ဝေါဟာရ</button>
+        <button class="nav-btn" data-page="practice">လေ့ကျင့်ခန်း</button>
+        <button class="nav-btn" data-page="saved">သိမ်းထားသောစာလုံး</button>
+    </nav>
+
+    <main>
+
+        <!-- HOME PAGE -->
+        <section id="home" class="page active">
+
+            <div class="welcome-card">
+                <h2>မင်္ဂလာပါ 👋</h2>
+                <p>
+                    ထိုင်းစာကို အခြေခံမှစပြီး တစ်ဆင့်ချင်း
+                    လေ့လာနိုင်ပါပြီ။
+                </p>
+                <p class="thai welcome-thai">ยินดีต้อนรับ</p>
+                <p>အဓိပ္ပာယ် - ကြိုဆိုပါတယ်</p>
+            </div>
+
+            <h2 class="section-title">သင်ခန်းစာများ</h2>
+
+            <div class="lesson-grid">
+
+                <button class="lesson-card" data-goto="alphabet">
+                    <span class="lesson-icon">ก</span>
+                    <strong>ထိုင်းဗျည်း</strong>
+                    <small>พยัญชนะไทย</small>
+                    <small>ဗျည်းအက္ခရာ ၄၄ လုံး</small>
+                </button>
+
+                <button class="lesson-card" data-goto="vowels">
+                    <span class="lesson-icon">◌า</span>
+                    <strong>ထိုင်းသရ</strong>
+                    <small>สระไทย</small>
+                    <small>သရအက္ခရာများ</small>
+                </button>
+
+                <button class="lesson-card" data-goto="tones">
+                    <span class="lesson-icon">◌่</span>
+                    <strong>အသံထွက်စနစ်</strong>
+                    <small>วรรณยุกต์</small>
+                    <small>အသံအနိမ့်အမြင့်</small>
+                </button>
+
+                <button class="lesson-card" data-goto="words">
+                    <span class="lesson-icon">คำ</span>
+                    <strong>ဝေါဟာရ</strong>
+                    <small>คำศัพท์</small>
+                    <small>နေ့စဉ်သုံး စကားလုံးများ</small>
+                </button>
+
+                <button class="lesson-card" data-goto="practice">
+                    <span class="lesson-icon">✎</span>
+                    <strong>လေ့ကျင့်ခန်း</strong>
+                    <small>แบบฝึกหัด</small>
+                    <small>ကိုယ်တိုင် စမ်းသပ်ကြည့်ပါ</small>
+                </button>
+
+                <button class="lesson-card" data-goto="saved">
+                    <span class="lesson-icon">★</span>
+                    <strong>သိမ်းထားသောစာလုံး</strong>
+                    <small>คำที่บันทึกไว้</small>
+                    <small>ပြန်လည်လေ့လာရန်</small>
+                </button>
+
+            </div>
+
+            <div class="progress-card">
+                <h3>သင်ယူမှုတိုးတက်မှု</h3>
+                <div class="progress-track">
+                    <div id="progress-bar" class="progress-fill"></div>
+                </div>
+                <p id="progress-text">ပြီးမြောက်မှု 0%</p>
+            </div>
+
+        </section>
+
+        <!-- ALPHABET PAGE -->
+        <section id="alphabet" class="page">
+
+            <div class="page-heading">
+                <h2>ထိုင်းဗျည်းအက္ခရာ</h2>
+                <p>พยัญชนะไทย - Thai Consonants</p>
+            </div>
+
+            <div class="info-card">
+                ထိုင်းဗျည်းအက္ခရာကို ရိုးရာစာရင်းအရ ၄၄ လုံးဟု
+                သတ်မှတ်ထားပါတယ်။ ဗျည်းများကို အသံအုပ်စုအလိုက်
+                အလယ်၊ အမြင့်၊ အနိမ့် ဟူ၍ ခွဲခြားလေ့လာပါမယ်။
+            </div>
+
+            <div class="filter-row">
+                <button class="filter-btn active" data-class="all">အားလုံး</button>
+                <button class="filter-btn" data-class="middle">အလယ်တန်း</button>
+                <button class="filter-btn" data-class="high">အမြင့်တန်း</button>
+                <button class="filter-btn" data-class="low">အနိမ့်တန်း</button>
+            </div>
+
+            <div id="alphabet-list" class="alphabet-grid"></div>
+
+        </section>
+
+        <!-- VOWELS PAGE -->
+        <section id="vowels" class="page">
+
+            <div class="page-heading">
+                <h2>ထိုင်းသရအက္ခရာ</h2>
+                <p>สระไทย - Thai Vowels</p>
+            </div>
+
+            <div class="info-card">
+                ထိုင်းသရများကို အသံတို၊ အသံရှည်နှင့်
+                သရပေါင်းစပ်ပုံများအလိုက် လေ့လာပါမယ်။
+                သရတစ်ခုသည် ဗျည်း၏ ရှေ့၊ နောက်၊ အပေါ်၊ အောက်
+                သို့မဟုတ် ပတ်လည်တွင် ရေးနိုင်ပါတယ်။
+            </div>
+
+            <div id="vowel-list" class="vowel-grid"></div>
+
+        </section>
+
+        <!-- TONES PAGE -->
+        <section id="tones" class="page">
+
+            <div class="page-heading">
+                <h2>ထိုင်းအသံထွက်စနစ်</h2>
+                <p>วรรณยุกต์ - Thai Tones</p>
+            </div>
+
+            <div class="info-card">
+                ထိုင်းဘာသာစကားတွင် အသံအနိမ့်အမြင့် ၅ မျိုးရှိပါတယ်။
+                အသံအမှတ်အသား ၄ မျိုးရှိပြီး ဗျည်းအုပ်စု၊
+                သရအရှည်အတိုနှင့် စာလုံးအဆုံးသတ်အသံတို့ကလည်း
+                အသံထွက်ကို သက်ရောက်စေပါတယ်။
+            </div>
+
+            <div id="tone-list" class="tone-list"></div>
+
+        </section>
+
+        <!-- WORDS PAGE -->
+        <section id="words" class="page">
+
+            <div class="page-heading">
+                <h2>ထိုင်းဝေါဟာရများ</h2>
+                <p>คำศัพท์ - Vocabulary</p>
+            </div>
+
+            <input
+                type="search"
+                id="word-search"
+                class="search-input"
+                placeholder="ထိုင်းစာ သို့မဟုတ် မြန်မာအဓိပ္ပာယ် ရှာရန်..."
+            >
+
+            <div id="word-list" class="word-list"></div>
+
+        </section>
+
+        <!-- PRACTICE PAGE -->
+        <section id="practice" class="page">
+
+            <div class="page-heading">
+                <h2>လေ့ကျင့်ခန်း</h2>
+                <p>แบบฝึกหัด - Practice</p>
+            </div>
+
+            <div class="quiz-card">
+
+                <div class="quiz-top">
+                    <span>မေးခွန်း</span>
+                    <span id="quiz-number">1</span>
+                </div>
+
+                <h3 id="quiz-question">ပြင်ဆင်နေသည်...</h3>
+
+                <div id="quiz-options" class="quiz-options"></div>
+
+                <p id="quiz-feedback" class="quiz-feedback"></p>
+
+                <button id="next-question" class="primary-btn">
+                    နောက်မေးခွန်း
+                </button>
+
+            </div>
+
+            <div class="quiz-score">
+                ရမှတ် - <strong id="quiz-score">0</strong>
+            </div>
+
+        </section>
+
+        <!-- SAVED PAGE -->
+        <section id="saved" class="page">
+
+            <div class="page-heading">
+                <h2>သိမ်းထားသောစာလုံးများ</h2>
+                <p>Favorite Words</p>
+            </div>
+
+            <div id="saved-list" class="word-list"></div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<footer class="app-footer">
+    <p>Thai Learning App</p>
+    <small>မြန်မာဘာသာဖြင့် ထိုင်းစာလေ့လာရန်</small>
+</footer>
+
+<script src="app.js"></script>
+
+</body>
+</html>
