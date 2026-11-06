@@ -1,57 +1,17 @@
 {
-  "id": "./",
   "name": "Thai Learning - ထိုင်းစာလေ့လာရန်",
   "short_name": "Thai Learning",
-  "description": "မြန်မာဘာသာဖြင့် ထိုင်းစာကို အခြေခံမှစ၍ လေ့လာနိုင်သော App",
-  "lang": "my",
-  "dir": "ltr",
-
   "start_url": "./index.html",
-  "scope": "./",
-
   "display": "standalone",
-  "display_override": [
-    "standalone",
-    "minimal-ui"
-  ],
-
-  "orientation": "portrait",
-
-  "background_color": "#f4f6fa",
+  "background_color": "#f4f7fc",
   "theme_color": "#2457a7",
-
-  "categories": [
-    "education",
-    "books",
-    "utilities"
-  ],
-
-  "prefer_related_applications": false,
-
+  "description": "မြန်မာဘာသာဖြင့် ထိုင်းစာလေ့လာရန်",
   "icons": [
-  {
-    "src": "./icon.svg",
-    "sizes": "any",
-    "type": "image/svg+xml",
-    "purpose": "any"
-  }
-],
-
-  "shortcuts": [
     {
-      "name": "ထိုင်းဗျည်း",
-      "short_name": "ဗျည်း",
-      "url": "./index.html#alphabet"
-    },
-    {
-      "name": "ထိုင်းဝေါဟာရ",
-      "short_name": "ဝေါဟာရ",
-      "url": "./index.html#words"
-    },
-    {
-      "name": "လေ့ကျင့်ခန်း",
-      "short_name": "Quiz",
-      "url": "./index.html#practice"
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
     }
   ]
 }
